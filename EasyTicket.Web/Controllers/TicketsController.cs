@@ -7,6 +7,9 @@ namespace EasyTicket.Web.Controllers {
         }
 
         public JsonResult Values(string term) {
+
+            Content("", "");
+
             return Json(new {
                             results = new[] {
                                 new {
