@@ -9,6 +9,7 @@
             <option></option>
         </select>
         
-        @*<input class='form-control col-lg-5 itemSearch' id="from-station" type='text' placeholder='select item' />*@
+        <select data-bind="value: selectedState, select2: { data: states, placeholder: 'Select a State', allowClear: true, }" class="select2" style="width: 200px"></select>
+        Selected: <span data-bind="text: selectedState"></span>
     </p>
 </div>

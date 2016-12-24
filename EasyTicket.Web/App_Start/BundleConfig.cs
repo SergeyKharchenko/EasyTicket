@@ -25,7 +25,9 @@ namespace EasyTicket.Web {
 
             bundles.Add(new ScriptBundle("~/bundles/3rdParty").Include(
                             "~/Scripts/select2.js",
-                            "~/Scripts/i18n/ru.js"));
+                            "~/Scripts/i18n/ru.js",
+                            "~/Scripts/knockout-{version}.js",
+                            "~/Scripts/knockout-select2.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                             "~/Scripts/app/index.js"));

@@ -445,10 +445,7 @@ function jjdecode(t) {
         private string FindToken(string tokenPart) {
             var regex = new Regex(TokenPattern);
             Match match = regex.Matches(tokenPart).OfType<Match>().FirstOrDefault();
-            if (match == null) {
-                return "";
-            }
-            return match.Groups[1].Value;
+            return match?.Groups[1].Value ?? "";
         }
     }
 }
