@@ -20,6 +20,7 @@ namespace EasyTicket.Web {
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
                             "~/Content/bootstrap.css",
+                            "~/Content/bootstrap-datepicker.css",
                             "~/Content/site.css",
                             "~/Content/css/select2.css"));
 
@@ -27,10 +28,17 @@ namespace EasyTicket.Web {
                             "~/Scripts/select2.js",
                             "~/Scripts/i18n/ru.js",
                             "~/Scripts/knockout-{version}.js",
-                            "~/Scripts/knockout-select2.js"));
+                            "~/Scripts/knockout-select2.js",
+                            "~/Scripts/moment.js",
+                            "~/Scripts/bootstrap-datepicker.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/3rdPartyExtensions").Include(
+                            "~/Scripts/extensions/knockout.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                            "~/Scripts/app/index.js"));
+                "~/Scripts/app/viewModelSettings.js",            
+                "~/Scripts/app/viewModel.js",            
+                "~/Scripts/app/index.js"));
 
 
         }

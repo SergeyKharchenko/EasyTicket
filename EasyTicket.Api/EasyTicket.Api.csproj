@@ -132,10 +132,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\CookieSupportatbleHttpClient.cs" />
     <Compile Include="Infrastructure\ScriptEngine .cs" />
     <Compile Include="Infrastructure\TokenDecoder.cs" />
     <Compile Include="Infrastructure\ResponseFormatter.cs" />
     <Compile Include="Infrastructure\UZClient.cs" />
+    <Compile Include="Infrastructure\UZContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
