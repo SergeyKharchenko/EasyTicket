@@ -48,7 +48,8 @@ namespace EasyTicket.Api.Infrastructure {
                     });
 
                 HttpResponseMessage response = client.PostAsync(UrlTrains, content).Result;
-                return await response.Content.ReadAsStringAsync();
+                string rawTrains = await response.Content.ReadAsStringAsync();
+                return ResponseFormatter.FormatTrains(rawTrains);
             }
         }
 

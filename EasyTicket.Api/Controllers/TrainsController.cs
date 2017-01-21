@@ -17,7 +17,7 @@ namespace EasyTicket.Api.Controllers {
         }
 
         // POST api/trains
-        public async Task<HttpResponseMessage> Post([FromBody] TrainsRequest request) {
+        public async Task<HttpResponseMessage> Post([FromBody]TrainsRequest request) {
             UZContext context = await UZ.GetUZContext();
             string trains = await UZ.GetTrains(context, request.StationIdFrom, request.StationIdTo, request.DateTime);
 
@@ -27,10 +27,16 @@ namespace EasyTicket.Api.Controllers {
         }
     }
 
+    [ModelBinder(typeof(CustomModelBinder))]
     public class TrainsRequest {
+        private string vDate;
         public int StationIdFrom { get; set; }
         public int StationIdTo { get; set; }
-        public string Date { get; set; }
+
+        public string Date {
+            get { return vDate; }
+            set { vDate = value; }
+        }
 
         public DateTime DateTime {
             get { return DateTime.Parse(Date); }
