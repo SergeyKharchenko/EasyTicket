@@ -1,3 +1,19 @@
-﻿.station-selector {
+﻿.stations-searcher {
+    padding-bottom: 30px;   
+}
+
+.stations-searcher div:first-child {
+    float: left;
+}
+
+.stations-searcher div:last-child {
+    float: right;
+}
+
+.station-selector {
     width: 300px;
+}
+
+.trains .train {
+    margin-bottom: 30px;
 }

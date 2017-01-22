@@ -3,6 +3,8 @@
         //initialize datepicker with some optional options
         var options = allBindingsAccessor().datepickerOptions || {};
         $(element).datepicker(options);
+        $(element).datepicker("setDate", valueAccessor()());
+        $(element).datepicker('update');
 
         //when a user changes the date, update the view model
         ko.utils.registerEventHandler(element, "changeDate", function (event) {

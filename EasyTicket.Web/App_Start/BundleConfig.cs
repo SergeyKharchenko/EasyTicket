@@ -30,12 +30,15 @@ namespace EasyTicket.Web {
                             "~/Scripts/knockout-{version}.js",
                             "~/Scripts/knockout-select2.js",
                             "~/Scripts/moment.js",
-                            "~/Scripts/bootstrap-datepicker.js"));
+                            "~/Scripts/bootstrap-datepicker.js",
+                            "~/Scripts/locales/bootstrap-datepicker.ru.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/3rdPartyExtensions").Include(
-                            "~/Scripts/extensions/knockout.js"));
+            bundles.Add(new ScriptBundle("~/bundles/Extensions").Include(
+                            "~/Scripts/extensions/knockout.js",
+                            "~/Scripts/extensions/date.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                "~/Scripts/app/uzClient.js",
                 "~/Scripts/app/viewModelSettings.js",            
                 "~/Scripts/app/viewModel.js",            
                 "~/Scripts/app/index.js"));

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -19,8 +20,8 @@ namespace EasyTicket.Api.Controllers {
         // POST api/trains
         public async Task<HttpResponseMessage> Post([FromBody]TrainsRequest request) {
             UZContext context = await UZ.GetUZContext();
-            string trains = await UZ.GetTrains(context, request.StationIdFrom, request.StationIdTo, request.DateTime);
 
+            string trains = await UZ.GetTrains(context, request.StationIdFrom, request.StationIdTo, request.DateTime);
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(trains, Encoding.UTF8, "application/json");
             return response;
@@ -39,7 +40,7 @@ namespace EasyTicket.Api.Controllers {
         }
 
         public DateTime DateTime {
-            get { return DateTime.Parse(Date); }
+            get { return DateTime.ParseExact(Date, "dd.MM.yyyy", CultureInfo.InvariantCulture); }
             set { Date = value.ToString("dd.MM.yyyy"); }
         }
     }

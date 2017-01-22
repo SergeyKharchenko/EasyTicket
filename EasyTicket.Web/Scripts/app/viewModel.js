@@ -1,5 +1,6 @@
 ﻿var ViewModel = function () {
     this.settings = new ViewModelSettings();
+    this.uzClient = new UZClient();
 
     this.stationFrom = ko.observable();
     this.stationFrom2 = ko.pureComputed(function () {
@@ -13,11 +14,24 @@
             "2200001"; // Киев
     }, this);
 
-    this.test_date = ko.observable();
+    this.date = ko.observable(new Date());
+    this.trains = ko.observableArray();
 
-    this.search = function() {
-        
-    }
+    this.search = function () {
+        var viewModel = this;
+        var date = viewModel.date().toUZFormat();
+        this.uzClient.getTrains({
+            stationIdFrom: viewModel.stationFrom(),
+            stationIdTo: viewModel.stationTo(),
+            date: date
+        }, function (data) {
+            viewModel.trains.removeAll();
+            for (var i = 0; i < data.trains.length; i++) {
+                var train = data.trains[i];
+                    viewModel.trains.push(train);
+            }
+        });
+    };
 };
 
 var viewModel = new ViewModel();

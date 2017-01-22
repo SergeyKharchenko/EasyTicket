@@ -5,22 +5,43 @@
 <div class="jumbotron">
     <h2>Укрзализныця. Автоматизированная покупка билетов.</h2>
 
-    <p class="lead">
-        <select data-bind="value: stationFrom, select2: settings.select2" class="station-selector"></select>
-        <select data-bind="value: stationTo, select2: settings.select2" class="station-selector"></select>
-
-    <p>
-        Selected from: <span data-bind="text: stationFrom"></span>
-        Selected to: <span data-bind="text: stationTo"></span>
-    </p>
+    <div class="lead stations-searcher">
+        <div>
+            <select data-bind="value: stationFrom, select2: settings.select2" class="station-selector"></select>
+        </div>
+        <div>
+            <select data-bind="value: stationTo, select2: settings.select2" class="station-selector"></select>
+        </div>
+    </div>
 
     <div class="input-group date">
-        <input type="text" class="form-control" data-bind='datepicker: test_date'>
+        <input type="text" class="form-control" data-bind='datepicker: date, datepickerOptions: {language: "ru"}'>
         <div class="input-group-addon">
             <span class="glyphicon glyphicon-th"></span>
         </div>
     </div>
 
-    <button class="btn btn-default" data-bind="click: search, enable: stationFrom2 && stationTo2">Найти</button>
-    </p>
+    <button class="btn btn-default" data-bind="click: search, enable: stationFrom && stationTo">Найти</button>
+</div>
+
+<div data-bind="foreach: trains" class="trains">
+    <div class="train">
+        <h4>Поезд номер: <span data-bind="text: trainNumber"></span></h4>
+        <div>
+            Время в дороге: <span data-bind="text: travelTime"></span>
+        </div>
+        <div>
+            <h5>Вагоны:</h5>
+            <ul data-bind="foreach: wagons">
+                <li>
+                    <div>
+                        Тип: <span data-bind="text: type"></span>
+                    </div>
+                    <div>
+                        Свободных мест: <span data-bind="text: freePlaces"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
