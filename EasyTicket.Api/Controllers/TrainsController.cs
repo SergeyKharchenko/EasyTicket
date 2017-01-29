@@ -11,15 +11,15 @@ using EasyTicket.Api.Infrastructure;
 
 namespace EasyTicket.Api.Controllers {
     public class TrainsController : ApiController {
-        private readonly UZClient UZ;
+        private readonly UzClient UZ;
 
         public TrainsController() {
-            UZ = new UZClient();
+            UZ = new UzClient();
         }
 
         // POST api/trains
         public async Task<HttpResponseMessage> Post([FromBody]TrainsRequest request) {
-            UZContext context = await UZ.GetUZContext();
+            UzContext context = await UZ.GetUZContext();
 
             string trains = await UZ.GetTrains(context, request.StationIdFrom, request.StationIdTo, request.DateTime);
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 
 namespace EasyTicket.Api.Infrastructure {
-    public class UZClient {
+    public class UzClient {
         private const string BaseUrl = @"http://booking.uz.gov.ua/ru/";
         private const string UrlStation = BaseUrl + @"purchase/station/";
         private const string UrlTrains = BaseUrl + @"purchase/search/";
@@ -14,17 +14,17 @@ namespace EasyTicket.Api.Infrastructure {
         private readonly TokenDecoder TokenDecoder = new TokenDecoder();
         private readonly ResponseFormatter ResponseFormatter = new ResponseFormatter();
 
-        public async Task<UZContext> GetUZContext() {
+        public async Task<UzContext> GetUZContext() {
             using (CookieSupportatbleHttpClient client = CreateHttpClient()) {
                 HttpResponseMessage response = await client.GetAsync(BaseUrl);
                 string mainPageHtml = await response.Content.ReadAsStringAsync();
                 string token = TokenDecoder.Decode(mainPageHtml);
                 CookieCollection cookies = client.ReadCookies(response);
-                return new UZContext(token, cookies);
+                return new UzContext(token, cookies);
             }
         }
 
-        public async Task<string> GetStations(UZContext context, string term) {
+        public async Task<string> GetStations(UzContext context, string term) {
             string normalizedTerm = HttpUtility.UrlEncode(HttpUtility.UrlDecode(term));
             using (CookieSupportatbleHttpClient client = CreateHttpClient(context)) {
                 HttpResponseMessage response = await client.GetAsync(UrlStation + normalizedTerm + "/");
@@ -33,7 +33,7 @@ namespace EasyTicket.Api.Infrastructure {
             }
         }
 
-        public async Task<string> GetTrains(UZContext context, int stationIdFrom, int stationIdTo, DateTime date) {
+        public async Task<string> GetTrains(UzContext context, int stationIdFrom, int stationIdTo, DateTime date) {
             using (CookieSupportatbleHttpClient client = CreateHttpClient(context)) {
                 client.SetCookie(context.Cookie);
                 var content = new FormUrlEncodedContent(
@@ -53,7 +53,7 @@ namespace EasyTicket.Api.Infrastructure {
             }
         }
 
-        private CookieSupportatbleHttpClient CreateHttpClient(UZContext context = null) {
+        private CookieSupportatbleHttpClient CreateHttpClient(UzContext context = null) {
             var httpClient = new CookieSupportatbleHttpClient();
 
             if (context != null) {

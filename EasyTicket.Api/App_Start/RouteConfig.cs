@@ -13,10 +13,16 @@ namespace EasyTicket.Api
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //routes.MapRoute(
+            //    name: "Request",
+            //    url: "Request",
+            //    defaults: new { controller = "PlaceRequestController", action = "Request", id = UrlParameter.Optional }
+            //);
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "PlaceRequestController", action = "Request", id = UrlParameter.Optional }
             );
         }
     }

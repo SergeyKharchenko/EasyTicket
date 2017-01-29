@@ -321,7 +321,7 @@
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\_references.js" />
-    <None Include="Views\Tickets\Index.cshtml" />
+    <Content Include="Views\Tickets\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

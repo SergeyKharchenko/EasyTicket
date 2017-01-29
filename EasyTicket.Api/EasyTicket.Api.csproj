@@ -44,6 +44,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -122,24 +134,31 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Binders\DateAndTimeModelBinder.cs" />
+    <Compile Include="Controllers\PlaceRequestController.cs" />
     <Compile Include="Controllers\TrainsController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
+    <Compile Include="Data\Dto\PlaceRequestDto.cs" />
+    <Compile Include="Data\Models\PlaceRequest.cs" />
+    <Compile Include="Data\UzDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\AutoMapper.cs" />
     <Compile Include="Infrastructure\CookieSupportatbleHttpClient.cs" />
+    <Compile Include="Infrastructure\Enums\PlaceType.cs" />
+    <Compile Include="Infrastructure\Enums\WagonArea.cs" />
+    <Compile Include="Infrastructure\Enums\WagonType.cs" />
     <Compile Include="Infrastructure\ScriptEngine .cs" />
     <Compile Include="Infrastructure\TokenDecoder.cs" />
     <Compile Include="Infrastructure\ResponseFormatter.cs" />
-    <Compile Include="Infrastructure\UZClient.cs" />
-    <Compile Include="Infrastructure\UZContext.cs" />
+    <Compile Include="Infrastructure\UzClient.cs" />
+    <Compile Include="Infrastructure\UzContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
