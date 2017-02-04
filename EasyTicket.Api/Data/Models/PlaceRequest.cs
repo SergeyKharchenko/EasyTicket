@@ -10,13 +10,11 @@ namespace EasyTicket.Api.Data.Models {
         [Required]
         public string PassangerName { get; set; }
         [Required]
+        public string PassangerSurname { get; set; }
+        [Required]
         public string PassangerEmail { get; set; }
         [Required]
         public WagonType WagonType { get; set; } = WagonType.Coupe;
-        [Required]
-        public WagonArea WagonArea { get; set; } = WagonArea.Any;
-        [Required]
-        public PlaceType PlaceType { get; set; } = PlaceType.LeftBottom;
         [Required]
         public string Date { get; set; }
         [Required]

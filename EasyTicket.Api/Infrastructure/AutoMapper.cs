@@ -6,8 +6,7 @@ namespace EasyTicket.Api.Infrastructure {
     public static class Mapper {
         static Mapper() {
             AutoMapper.Mapper.Initialize(cfg => {
-                cfg.CreateMap<PlaceRequestDto, PlaceRequest>();
-                cfg.CreateMap<PlaceRequest, PlaceRequestDto>();
+                cfg.CreateMap<PlaceRequestDto, PlaceRequest>().ReverseMap();
             });
         }
 

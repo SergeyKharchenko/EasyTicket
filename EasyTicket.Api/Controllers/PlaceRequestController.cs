@@ -1,8 +1,4 @@
-﻿using System;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Web.Http;
+﻿using System.Web.Http;
 using EasyTicket.Api.Data;
 using EasyTicket.Api.Data.Dto;
 using EasyTicket.Api.Data.Models;
@@ -18,14 +14,13 @@ namespace EasyTicket.Api.Controllers {
 
         [HttpPost]
         [Route("api/Request")]
-        // POST api/Request
-        public HttpResponseMessage RequestPlace([FromBody]PlaceRequestDto placeRequestDto) {
+        public IHttpActionResult RequestPlace([FromBody]PlaceRequestDto placeRequestDto) {
             PlaceRequest request = Mapper.Map<PlaceRequestDto, PlaceRequest>(placeRequestDto);
-                using (var context = new UzDbContext()) {
-                    context.PlaceRequests.Add(request);
-                    context.SaveChanges();
-                }
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            using (var context = new UzDbContext()) {
+                context.PlaceRequests.Add(request);
+                context.SaveChanges();
+            }
+            return Ok();
         }
     }
 }
