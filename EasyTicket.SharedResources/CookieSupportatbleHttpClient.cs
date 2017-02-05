@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 
-namespace EasyTicket.Api.Infrastructure {
+namespace EasyTicket.SharedResources {
     public class CookieSupportatbleHttpClient : HttpClient {
         private readonly CookieContainer _cookie;
 
@@ -23,8 +23,7 @@ namespace EasyTicket.Api.Infrastructure {
             Uri pageUri = response.RequestMessage.RequestUri;
 
             var cookieContainer = new CookieContainer();
-            IEnumerable<string> cookies;
-            if (response.Headers.TryGetValues("set-cookie", out cookies)) {
+            if (response.Headers.TryGetValues("set-cookie", out IEnumerable<string> cookies)) {
                 foreach (string cookieHeader in cookies) {
                     cookieContainer.SetCookies(pageUri, cookieHeader);
                 }

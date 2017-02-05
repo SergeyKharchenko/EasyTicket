@@ -3,6 +3,7 @@ using EasyTicket.Api.Data;
 using EasyTicket.Api.Data.Dto;
 using EasyTicket.Api.Data.Models;
 using EasyTicket.Api.Infrastructure;
+using EasyTicket.SharedResources;
 
 namespace EasyTicket.Api.Controllers {
     public class PlaceRequestController : ApiController {

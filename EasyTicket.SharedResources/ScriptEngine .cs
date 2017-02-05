@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Threading;
 
-namespace EasyTicket.Api.Infrastructure {
+namespace EasyTicket.SharedResources {
     /// <summary>
 /// Represents a Windows Script Engine such as JScript, VBScript, etc.
 /// </summary>
@@ -464,12 +464,16 @@ public sealed class ScriptEngine : IDisposable
             {
                 message = "Script exception: {1}. Error number {0} (0x{0:X8}): {2} at line {3}, column {4}.";
             }
-            LastException = new ScriptException(string.Format(message, exceptionInfo.scode, exceptionInfo.bstrSource, exceptionInfo.bstrDescription, lineNumber, characterPosition, sourceLine));
-            LastException.Column = characterPosition;
-            LastException.Description = exceptionInfo.bstrDescription;
-            LastException.Line = lineNumber;
-            LastException.Number = exceptionInfo.scode;
-            LastException.Text = sourceLine;
+            LastException =
+                new ScriptException(string.Format(message, exceptionInfo.scode, exceptionInfo.bstrSource,
+                                                  exceptionInfo.bstrDescription, lineNumber, characterPosition,
+                                                  sourceLine)) {
+                    Column = characterPosition,
+                    Description = exceptionInfo.bstrDescription,
+                    Line = lineNumber,
+                    Number = exceptionInfo.scode,
+                    Text = sourceLine
+                };
             return 0;
         }
 

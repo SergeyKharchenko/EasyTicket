@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace EasyTicket.Api.Infrastructure {
+namespace EasyTicket.SharedResources {
     public class UzClient {
         private const string BaseUrl = @"http://booking.uz.gov.ua/ru/";
         private const string UrlStation = BaseUrl + @"purchase/station/";

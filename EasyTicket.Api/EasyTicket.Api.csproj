@@ -150,15 +150,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\AutoMapper.cs" />
-    <Compile Include="Infrastructure\CookieSupportatbleHttpClient.cs" />
-    <Compile Include="Infrastructure\Enums\PlaceType.cs" />
-    <Compile Include="Infrastructure\Enums\WagonArea.cs" />
     <Compile Include="Infrastructure\Enums\WagonType.cs" />
-    <Compile Include="Infrastructure\ScriptEngine .cs" />
-    <Compile Include="Infrastructure\TokenDecoder.cs" />
-    <Compile Include="Infrastructure\ResponseFormatter.cs" />
-    <Compile Include="Infrastructure\UzClient.cs" />
-    <Compile Include="Infrastructure\UzContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +168,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EasyTicket.SharedResources\EasyTicket.SharedResources.csproj">
+      <Project>{8B97DB55-B875-4D00-AC0D-116467145AA2}</Project>
+      <Name>EasyTicket.SharedResources</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

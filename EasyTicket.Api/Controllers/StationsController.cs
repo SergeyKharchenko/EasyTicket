@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
-using EasyTicket.Api.Infrastructure;
+using EasyTicket.SharedResources;
 
 namespace EasyTicket.Api.Controllers {
     public class StationsController : ApiController {

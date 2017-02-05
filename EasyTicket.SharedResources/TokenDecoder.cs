@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace EasyTicket.Api.Infrastructure {
+namespace EasyTicket.SharedResources {
     public class TokenDecoder {
         #region JsCode
         private const string JsCode = @"
