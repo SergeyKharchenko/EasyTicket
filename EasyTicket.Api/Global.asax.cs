@@ -6,6 +6,7 @@ using System.Web.ModelBinding;
 using System.Web.Mvc;
 using System.Web.Routing;
 using EasyTicket.Api.Controllers;
+using EasyTicket.Api.Dto;
 using DefaultModelBinder = System.Web.Mvc.DefaultModelBinder;
 using IModelBinder = System.Web.Mvc.IModelBinder;
 using ModelBinderProviders = System.Web.Mvc.ModelBinderProviders;
@@ -22,7 +23,7 @@ namespace EasyTicket.Api {
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             ModelBinderProviders.BinderProviders.Add(new CustomerOrderModelBinderProvider());
-            ModelBinders.Binders[typeof(TrainsRequest)] = new CustomModelBinder();
+            ModelBinders.Binders[typeof(TrainsRequestDto)] = new CustomModelBinder();
         }
     }
 

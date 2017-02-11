@@ -17,3 +17,11 @@
 .trains .train {
     margin-bottom: 30px;
 }
+
+.body-content {
+    margin-top: 51px;
+}
+
+.page {
+    display: none;
+}

@@ -1,13 +1,10 @@
-﻿using AutoMapper;
-using EasyTicket.Api.Data.Dto;
-using EasyTicket.Api.Data.Models;
+﻿using EasyTicket.Api.Dto;
+using EasyTicket.SharedResources.Models;
 
 namespace EasyTicket.Api.Infrastructure {
     public static class Mapper {
         static Mapper() {
-            AutoMapper.Mapper.Initialize(cfg => {
-                cfg.CreateMap<PlaceRequestDto, PlaceRequest>().ReverseMap();
-            });
+            AutoMapper.Mapper.Initialize(cfg => { cfg.CreateMap<RequestDto, Request>().ReverseMap(); });
         }
 
         public static TDestination Map<TSource, TDestination>(TSource source) {

@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using EasyTicket.Api.Dto;
 using EasyTicket.SharedResources;
 
 namespace EasyTicket.Api.Controllers {
@@ -14,14 +15,10 @@ namespace EasyTicket.Api.Controllers {
         }
 
         // POST api/stations
-        public async Task<HttpResponseMessage> Post([FromBody] StationsRequest request) {
+        public async Task<HttpResponseMessage> Post([FromBody] StationsRequestDto requestDto) {
             UzContext context = await UZ.GetUZContext();
-            string stations = await UZ.GetStations(context, request.Term);
+            string stations = await UZ.GetStations(context, requestDto.Term);
             return Json(stations);
         }
-    }
-
-    public class StationsRequest {
-        public string Term { get; set; }
     }
 }

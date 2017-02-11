@@ -20,5 +20,10 @@ namespace EasyTicket.Web.Controllers {
                         },
                         JsonRequestBehavior.AllowGet);
         }
+
+
+        public ActionResult Buy() {
+            return View();
+        }
     }
 }

@@ -28,6 +28,8 @@ namespace EasyTicket.Web {
                             "~/Scripts/select2.js",
                             "~/Scripts/i18n/ru.js",
                             "~/Scripts/knockout-{version}.js",
+                            "~/Scripts/sammy-0.7.5.js",
+
                             "~/Scripts/knockout-select2.js",
                             "~/Scripts/moment.js",
                             "~/Scripts/bootstrap-datepicker.js",
@@ -38,8 +40,11 @@ namespace EasyTicket.Web {
                             "~/Scripts/extensions/date.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                "~/Scripts/app/sammy.js",
                 "~/Scripts/app/uzClient.js",
                 "~/Scripts/app/viewModelSettings.js",            
+                "~/Scripts/app/mainViewModel.js",            
+                "~/Scripts/app/requestViewModel.js",            
                 "~/Scripts/app/viewModel.js",            
                 "~/Scripts/app/index.js"));
 
