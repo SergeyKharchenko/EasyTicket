@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using EasyTicket.Api.Infrastructure.Enums;
 
-namespace EasyTicket.Api.Data.Models {
-    public class PlaceRequest {
+namespace EasyTicket.SharedResources.Models {
+    public class Request {
         [Key]
         public int Id { get; set; }
         [Required]
@@ -12,11 +12,12 @@ namespace EasyTicket.Api.Data.Models {
         [Required]
         public string PassangerSurname { get; set; }
         [Required]
+        [EmailAddress]
         public string PassangerEmail { get; set; }
         [Required]
         public WagonType WagonType { get; set; } = WagonType.Coupe;
         [Required]
-        public string Date { get; set; }
+        public DateTime DateTime { get; set; }
         [Required]
         public string PlacesString { get; set; }
         [NotMapped]

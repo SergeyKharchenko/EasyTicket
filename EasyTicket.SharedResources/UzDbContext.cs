@@ -1,9 +1,10 @@
-﻿using System.Data.Entity;
-using EasyTicket.Api.Data.Models;
+﻿using System;
+using System.Data.Entity;
+using EasyTicket.SharedResources.Models;
 
-namespace EasyTicket.Api.Data {
+namespace EasyTicket.SharedResources {
     public class UzDbContext : DbContext {
-        public DbSet<PlaceRequest> PlaceRequests { get; set; }
+        public DbSet<Request> Requests { get; set; }
 
         public UzDbContext(string connectionString = "UzConnectionString") : base(connectionString) {
             Database.SetInitializer(new UzDbContextInitializer());

@@ -1,0 +1,50 @@
+﻿<div class="page" id="request-page" data-bind="with: request">
+    <div class="jumbotron">
+        <h2>Укрзализныця. Автоматизированная покупка билетов.</h2>
+
+        <div class="lead stations-searcher">
+            <div>
+                <select data-bind="value: stationFrom, select2: $root.settings.select2" class="station-selector"></select>
+            </div>
+            <div>
+                <select data-bind="value: stationTo, select2: $root.settings.select2" class="station-selector"></select>
+            </div>
+        </div>
+
+        <div class="input-group date">
+            <input type="text" class="form-control" data-bind='datepicker: date, datepickerOptions: {language: "ru"}'>
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
+
+        <p>
+            <input type="text" placeholder="Имя" data-bind="value: name"/>
+        </p>
+        <p>
+            <input type="text" placeholder="Фамилия"  data-bind="value: surname"/>
+        </p>
+        <p>
+            <input type="text" placeholder="Почта"  data-bind="value: email"/>
+        </p>
+
+<p>
+            Тип вагона:
+            <select data-bind="options: wagons,
+                       optionsText: 'type',
+                       value: selectedWagon,
+                       optionsCaption: 'Выберите тип вагона...'"></select>
+        </p>
+        
+        <p>
+            Номер места:
+            <select data-bind="options: places,
+                       selectedOptions: selectedPlaces,
+                       optionsCaption: 'Выберите номер места...'"
+                    multiple size="10"></select>
+        </p>
+
+        <button class="btn btn-default" data-bind="click: buy, enable: canBuy">Купить</button>
+        <img src="~/Content/images/loading.gif" data-bind="visible: loading" width="32" height="32"/>
+    </div>
+</div>
