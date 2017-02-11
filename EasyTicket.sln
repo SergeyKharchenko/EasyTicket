@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyTicket.Web", "EasyTicket.Web\EasyTicket.Web.csproj", "{82D9A326-CDBF-4EF9-AB8B-B3721B2AC663}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyTicket.Api", "EasyTicket.Api\EasyTicket.Api.csproj", "{E06A8664-CC84-4614-B93F-05D8806B0BF8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8B97DB55-B875-4D00-AC0D-116467145AA2} = {8B97DB55-B875-4D00-AC0D-116467145AA2}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyTicket.Workbench", "EasyTicket.Workbench\EasyTicket.Workbench.csproj", "{ABD34DA1-3BF4-4465-AC7F-B402BFE3607D}"
 EndProject

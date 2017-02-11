@@ -6,7 +6,7 @@ using System.Web.Http;
 using EasyTicket.SharedResources;
 
 namespace EasyTicket.Api.Controllers {
-    public class StationsController : ApiController {
+    public class StationsController : BaseController {
         private readonly UzClient UZ;
 
         public StationsController() {
@@ -17,10 +17,7 @@ namespace EasyTicket.Api.Controllers {
         public async Task<HttpResponseMessage> Post([FromBody] StationsRequest request) {
             UzContext context = await UZ.GetUZContext();
             string stations = await UZ.GetStations(context, request.Term);
-
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(stations, Encoding.UTF8, "application/json");
-            return response;
+            return Json(stations);
         }
     }
 

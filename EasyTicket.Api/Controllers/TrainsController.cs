@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using EasyTicket.SharedResources;
 
 namespace EasyTicket.Api.Controllers {
-    public class TrainsController : ApiController {
+    public class TrainsController : BaseController {
         private readonly UzClient UZ;
 
         public TrainsController() {
@@ -19,25 +19,16 @@ namespace EasyTicket.Api.Controllers {
         // POST api/trains
         public async Task<HttpResponseMessage> Post([FromBody]TrainsRequest request) {
             UzContext context = await UZ.GetUZContext();
-
             string trains = await UZ.GetTrains(context, request.StationIdFrom, request.StationIdTo, request.DateTime);
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(trains, Encoding.UTF8, "application/json");
-            return response;
+            return Json(trains);
         }
     }
 
     [ModelBinder(typeof(CustomModelBinder))]
     public class TrainsRequest {
-        private string vDate;
         public int StationIdFrom { get; set; }
         public int StationIdTo { get; set; }
-
-        public string Date {
-            get { return vDate; }
-            set { vDate = value; }
-        }
-
+        public string Date { get; set; }
         public DateTime DateTime {
             get { return DateTime.ParseExact(Date, "dd.MM.yyyy", CultureInfo.InvariantCulture); }
             set { Date = value.ToString("dd.MM.yyyy"); }

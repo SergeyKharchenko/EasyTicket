@@ -6,7 +6,7 @@ using EasyTicket.Api.Infrastructure;
 using EasyTicket.SharedResources;
 
 namespace EasyTicket.Api.Controllers {
-    public class PlaceRequestController : ApiController {
+    public class PlaceRequestController : BaseController {
         private readonly UzClient UZ;
 
         public PlaceRequestController() {

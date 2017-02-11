@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CookieSupportatbleHttpClient.cs" />
+    <Compile Include="DateExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseFormatter.cs" />
     <Compile Include="ScriptEngine .cs" />

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using Newtonsoft.Json.Linq;
 
 namespace EasyTicket.SharedResources {
     public class ResponseFormatter {
@@ -40,7 +41,7 @@ namespace EasyTicket.SharedResources {
                 JObject train = JObject.FromObject(new {
                     trainNumber = jTrainToken["num"],
                     travelTime = jTrainToken["travel_time"],
-                    model = jTrainToken["model"],
+                    trainType = jTrainToken["model"],
                     stationFrom,
                     stationTo,
                     wagons
@@ -59,9 +60,41 @@ namespace EasyTicket.SharedResources {
             return JObject.FromObject(new {
                 id = jStationToken["station_id"],
                 title = jStationToken["station"],
-                dateCode = jStationToken["date"],
                 date = jStationToken["src_date"]
             });
+        }
+
+        public string FormatWagons(string rawWagons) {
+            JObject jRawWagons = JObject.Parse(rawWagons);
+            var wagons = new JArray();
+
+            foreach (JToken jWagon in jRawWagons["coaches"]) {
+                var firstPrice = (JProperty)jWagon["prices"].First;
+                decimal price = ((decimal) Convert.ChangeType(((JValue) firstPrice.Value).Value, typeof(decimal)) / 100);
+                JObject wagon = JObject.FromObject(new {
+                    number = jWagon["num"],
+                    type = jWagon["type"],
+                    count = jWagon["places_cnt"],
+                    coachType = jWagon["coach_type_id"],
+                    coachClass = jWagon["coach_class"],
+                    price
+                });
+                wagons.Add(wagon);
+            }
+            return new JObject {
+                {
+                    "wagons", wagons
+                }
+            }.ToString();
+        }
+
+        public string FormatPlaces(string rawPlaces) {
+            JObject jRawPlaces = JObject.Parse(rawPlaces);
+            return new JObject {
+                {
+                    "places", jRawPlaces.First.First.First.First.First.First.DeepClone()
+                }
+            }.ToString();
         }
     }
 }

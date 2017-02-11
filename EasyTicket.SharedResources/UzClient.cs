@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace EasyTicket.SharedResources {
         private const string BaseUrl = @"http://booking.uz.gov.ua/ru/";
         private const string UrlStation = BaseUrl + @"purchase/station/";
         private const string UrlTrains = BaseUrl + @"purchase/search/";
+        private const string UrlWagons = BaseUrl + @"purchase/coaches/";
+        private const string UrlPlaces = BaseUrl + @"purchase/coach/";
 
         private readonly TokenDecoder TokenDecoder = new TokenDecoder();
         private readonly ResponseFormatter ResponseFormatter = new ResponseFormatter();
@@ -53,6 +56,48 @@ namespace EasyTicket.SharedResources {
             }
         }
 
+        public async Task<string> GetWagons(UzContext context, int stationIdFrom, int stationIdTo, DateTime date, string trainId, int trainType, string wagonType) {
+            using (CookieSupportatbleHttpClient client = CreateHttpClient(context)) {
+                client.SetCookie(context.Cookie);
+                var content = new FormUrlEncodedContent(
+                    new Dictionary<string, string> {
+                        {"station_id_from", stationIdFrom.ToString()},
+                        {"station_id_till", stationIdTo.ToString()},
+                        {"date_dep", date.ToUnixTimestamp().ToString(CultureInfo.InvariantCulture)},
+                        {"train", trainId },
+                        {"model", trainType.ToString()},
+                        {"coach_type", wagonType},
+                        {"round_trip", "0"},
+                        {"another_ec", "0"}
+                    });
+
+                HttpResponseMessage response = client.PostAsync(UrlWagons, content).Result;
+                string rawWagons = await response.Content.ReadAsStringAsync();
+                return ResponseFormatter.FormatWagons(rawWagons);
+            }
+        }
+
+        public async Task<string> GetPlaces(UzContext context, int stationIdFrom, int stationIdTo, DateTime date, string trainId, int wagonNumber, string coachClass, int coachType) {
+            using (CookieSupportatbleHttpClient client = CreateHttpClient(context)) {
+                client.SetCookie(context.Cookie);
+                var content = new FormUrlEncodedContent(
+                    new Dictionary<string, string> {
+                        {"station_id_from", stationIdFrom.ToString()},
+                        {"station_id_till", stationIdTo.ToString()},
+                        {"date_dep", date.ToUnixTimestamp().ToString(CultureInfo.InvariantCulture)},
+                        {"train", trainId },
+                        {"coach_num", wagonNumber.ToString()},
+                        {"coach_class", coachClass},
+                        {"coach_type_id", coachType.ToString()},
+                        {"change_scheme", "1"}
+                    });
+
+                HttpResponseMessage response = client.PostAsync(UrlPlaces, content).Result;
+                string rawPlaces = await response.Content.ReadAsStringAsync();
+                return ResponseFormatter.FormatPlaces(rawPlaces);
+            }
+        }
+
         private CookieSupportatbleHttpClient CreateHttpClient(UzContext context = null) {
             var httpClient = new CookieSupportatbleHttpClient();
 
@@ -64,7 +109,5 @@ namespace EasyTicket.SharedResources {
 
             return httpClient;
         }
-
-
     }
 }
