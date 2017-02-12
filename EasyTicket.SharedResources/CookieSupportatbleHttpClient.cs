@@ -23,7 +23,8 @@ namespace EasyTicket.SharedResources {
             Uri pageUri = response.RequestMessage.RequestUri;
 
             var cookieContainer = new CookieContainer();
-            if (response.Headers.TryGetValues("set-cookie", out IEnumerable<string> cookies)) {
+            IEnumerable<string> cookies;
+            if (response.Headers.TryGetValues("set-cookie", out cookies)) {
                 foreach (string cookieHeader in cookies) {
                     cookieContainer.SetCookies(pageUri, cookieHeader);
                 }
