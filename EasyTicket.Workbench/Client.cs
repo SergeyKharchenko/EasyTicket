@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Threading.Tasks;
 using EasyTicket.SharedResources;
+using EasyTicket.SharedResources.Infrastructure;
 
 namespace EasyTicket.Workbench {
     public static class Client {
@@ -10,8 +11,8 @@ namespace EasyTicket.Workbench {
             UzContext context = await uzClient.GetUZContext();
             string wagons =
                 await uzClient.GetWagons(context,
-                                         stationIdFrom: 2200001, // Киев
-                                         stationIdTo: 2210900,   // Кривой Рог - Главный
+                                         stationFromId: 2200001, // Киев
+                                         stationToId: 2210900,   // Кривой Рог - Главный
                                          date: DateTime.ParseExact("2017-02-13 17:24:00", "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
                                          trainId: "740Ш",
                                          trainType: 5,

@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
 
-namespace EasyTicket.SharedResources {
+namespace EasyTicket.SharedResources.Infrastructure {
     public class ResponseFormatter {
         public string FormatStations(string rawStations) {
             JObject rawStationsResponse = JObject.Parse(rawStations);

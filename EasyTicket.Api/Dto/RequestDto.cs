@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using EasyTicket.SharedResources;
 using EasyTicket.SharedResources.Models;
 
 namespace EasyTicket.Api.Dto {

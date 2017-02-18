@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace EasyTicket.SharedResources {
+namespace EasyTicket.SharedResources.Infrastructure {
     public class UzContext {
         public string Token { get; private set; }
 

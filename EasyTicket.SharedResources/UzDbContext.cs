@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using EasyTicket.SharedResources.Models;
+using EasyTicket.SharedResources.Models.Tables;
 
 namespace EasyTicket.SharedResources {
     public class UzDbContext : DbContext {

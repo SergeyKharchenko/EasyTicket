@@ -1,5 +1,6 @@
 ﻿using System;
 using EasyTicket.SharedResources;
+using EasyTicket.SharedResources.Infrastructure;
 using Newtonsoft.Json.Linq;
 
 namespace EasyTicket.Workbench {

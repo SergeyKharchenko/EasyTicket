@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using EasyTicket.SharedResources;
+using EasyTicket.SharedResources.Infrastructure;
 using EasyTicket.SharedResources.Models;
+using EasyTicket.SharedResources.Models.Tables;
 
 namespace ProcessRequestJob {
     public class TicketChecker : IDisposable {
@@ -20,9 +22,9 @@ namespace ProcessRequestJob {
             }
         }
 
-        private void CheckTicket(UzContext uzContext, Request request) {
-            //_uzClient.GetTrains(request.)
-            //request.
+        private async void CheckTicket(UzContext uzContext, Request request) {
+            string a = await _uzClient.GetTrains(uzContext, request.StationFromId, request.StationToId, request.DateTime);
+         //   request.
         }
 
         public void Dispose() {

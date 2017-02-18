@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace EasyTicket.SharedResources.Models {
+namespace EasyTicket.SharedResources.Models.Tables {
     public class Request {
         [Key]
         public int Id { get; set; }

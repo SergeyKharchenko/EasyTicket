@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 
-namespace EasyTicket.SharedResources {
+namespace EasyTicket.SharedResources.Infrastructure {
     public class CookieSupportatbleHttpClient : HttpClient {
         private readonly CookieContainer _cookie;
 
