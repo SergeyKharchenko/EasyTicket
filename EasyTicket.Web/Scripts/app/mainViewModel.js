@@ -20,8 +20,8 @@
         var viewModel = this;
         var date = viewModel.date().toUZFormat();
         this.uzClient.getTrains({
-            stationIdFrom: viewModel.stationFrom(),
-            stationIdTo: viewModel.stationTo(),
+            stationFromId: viewModel.stationFrom(),
+            stationToId: viewModel.stationTo(),
             date: date
         }, function (data) {
             viewModel.trains.removeAll();

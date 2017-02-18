@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Threading;
 
-namespace EasyTicket.SharedResources {
+namespace EasyTicket.SharedResources.Infrastructure {
     /// <summary>
 /// Represents a Windows Script Engine such as JScript, VBScript, etc.
 /// </summary>

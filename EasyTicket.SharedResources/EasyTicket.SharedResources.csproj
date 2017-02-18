@@ -52,16 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CookieSupportatbleHttpClient.cs" />
+    <Compile Include="Infrastructure\CookieSupportatbleHttpClient.cs" />
     <Compile Include="DateExtensions.cs" />
-    <Compile Include="Models\Request.cs" />
-    <Compile Include="Models\WagonType.cs" />
+    <Compile Include="Models\Responses\Trains.cs" />
+    <Compile Include="Models\Tables\Request.cs" />
+    <Compile Include="WagonType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResponseFormatter.cs" />
-    <Compile Include="ScriptEngine .cs" />
-    <Compile Include="TokenDecoder.cs" />
-    <Compile Include="UzClient.cs" />
-    <Compile Include="UZContext.cs" />
+    <Compile Include="Infrastructure\ResponseFormatter.cs" />
+    <Compile Include="Infrastructure\ScriptEngine .cs" />
+    <Compile Include="Infrastructure\TokenDecoder.cs" />
+    <Compile Include="Infrastructure\UzClient.cs" />
+    <Compile Include="Infrastructure\UZContext.cs" />
     <Compile Include="UzDbContext.cs" />
   </ItemGroup>
   <ItemGroup>

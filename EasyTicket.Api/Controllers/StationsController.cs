@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using EasyTicket.Api.Dto;
 using EasyTicket.SharedResources;
+using EasyTicket.SharedResources.Infrastructure;
 
 namespace EasyTicket.Api.Controllers {
     public class StationsController : BaseController {

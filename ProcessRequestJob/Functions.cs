@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EasyTicket.SharedResources;
 using EasyTicket.SharedResources.Models;
+using EasyTicket.SharedResources.Models.Tables;
 using Microsoft.Azure.WebJobs;
 
 namespace ProcessRequestJob {
