@@ -8,6 +8,14 @@ namespace EasyTicket.SharedResources.Models {
         [Key]
         public int Id { get; set; }
         [Required]
+        public int StationFromId { get; set; }
+        [Required]
+        public string StationFromTitle { get; set; }
+        [Required]
+        public int StationToId { get; set; }
+        [Required]
+        public string StationToTitle { get; set; }
+        [Required]
         public string PassangerName { get; set; }
         [Required]
         public string PassangerSurname { get; set; }

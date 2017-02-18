@@ -3,16 +3,20 @@
 
     this.uzClient = new UzClient();
 
+    this.stationFromSettings = new ViewModelSettings().select2;
+    this.stationFromSettings.selectedText = ko.observable("Львов");
     this.stationFrom = ko.observable();
     this.stationFrom2 = ko.pureComputed(function () {
         return viewModel.stationFrom() ||
-            "2210900"; // Кривой Рог Главный
+            "2218000";
     });
 
-    this.stationTo = ko.observable(); 
+    this.stationToSettings = new ViewModelSettings().select2;
+    this.stationToSettings.selectedText = ko.observable("Киев");
+    this.stationTo = ko.observable();
     this.stationTo2 = ko.pureComputed(function () {
         return viewModel.stationTo() ||
-            "2200001"; // Киев
+            "2200001";
     });
 
     this.date = ko.observable(new Date());
@@ -55,8 +59,10 @@
         viewModel.loading(true);
         var date = viewModel.date().toUZFormat();
         var request = {
-            stationIdFrom: viewModel.stationFrom2(),
-            stationIdTo: viewModel.stationTo2(),
+            stationFromId: viewModel.stationFrom2(),
+            stationFromTitle: viewModel.stationFromSettings.selectedText(),
+            stationToId: viewModel.stationTo2(),
+            stationToTitle: viewModel.stationToSettings.selectedText(),
             date: date,
             passangerName: viewModel.name(),
             passangerSurname: viewModel.surname(),

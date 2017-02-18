@@ -38,9 +38,14 @@
         $(element).on('select2:selecting select2:unselecting', function() {
             ignoreChange = true;
         });
-        $(element).on('select2:select select2:unselect', function() {
-            ignoreChange = false;
-        });
+        $(element).on('select2:select select2:unselect',
+            function() {
+                ignoreChange = false;
+                if (ko.isObservable(bindingValue.selectedText)) {
+                    var selectedData = $(this).select2('data')[0];
+                    bindingValue.selectedText(selectedData.text);
+                }
+            });
 
         if (ko.isObservable(allBindings.value)) {
             subscription = allBindings.value.subscribe(function(value) {
