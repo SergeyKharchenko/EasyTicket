@@ -31,7 +31,7 @@ namespace EasyTicket.SharedResources.Infrastructure {
                 var wagons = new JArray();
                 foreach (JToken jWagonsToken in jTrainToken["types"]) {
                     JObject wagon = JObject.FromObject(new {
-                        type = jWagonsToken["title"],
+                        typeDescription = jWagonsToken["title"],
                         typeCode = jWagonsToken["letter"],
                         freePlaces = jWagonsToken["places"]
                     });
@@ -73,8 +73,8 @@ namespace EasyTicket.SharedResources.Infrastructure {
                 decimal price = ((decimal) Convert.ChangeType(((JValue) firstPrice.Value).Value, typeof(decimal)) / 100);
                 JObject wagon = JObject.FromObject(new {
                     number = jWagon["num"],
-                    type = jWagon["type"],
-                    count = jWagon["places_cnt"],
+                    typeCode = jWagon["type"],
+                    freePlaces = jWagon["places_cnt"],
                     coachType = jWagon["coach_type_id"],
                     coachClass = jWagon["coach_class"],
                     price

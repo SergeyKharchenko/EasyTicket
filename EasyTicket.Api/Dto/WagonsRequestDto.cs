@@ -4,9 +4,9 @@ using System.Globalization;
 namespace EasyTicket.Api.Dto {
     public class WagonsRequestDto {
         public int StationFromId { get; set; }
-        public int StationIdTo { get; set; }
+        public int StationToId { get; set; }
         public string Date { get; set; }
-        public string TrainId { get; set; }
+        public string TrainNumber { get; set; }
         public int TrainType { get; set; }
         public string WagonType { get; set; }
 
