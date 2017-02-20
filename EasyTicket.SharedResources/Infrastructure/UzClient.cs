@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
+using EasyTicket.SharedResources.Models.Responses;
 
 namespace EasyTicket.SharedResources.Infrastructure {
     public class UzClient {
@@ -36,7 +37,7 @@ namespace EasyTicket.SharedResources.Infrastructure {
             }
         }
 
-        public async Task<string> GetTrains(UzContext context, int stationFromId, int stationToId, DateTime date) {
+        public async Task<TrainsResponse> GetTrains(UzContext context, int stationFromId, int stationToId, DateTime date) {
             using (CookieSupportatbleHttpClient client = CreateHttpClient(context)) {
                 client.SetCookie(context.Cookie);
                 var content = new FormUrlEncodedContent(
@@ -50,13 +51,14 @@ namespace EasyTicket.SharedResources.Infrastructure {
                         {"search", ""}
                     });
 
-                HttpResponseMessage response = client.PostAsync(UrlTrains, content).Result;
+                HttpResponseMessage response = await client.PostAsync(UrlTrains, content);
                 string rawTrains = await response.Content.ReadAsStringAsync();
-                return ResponseFormatter.FormatTrains(rawTrains);
+                string formattedTrains = ResponseFormatter.FormatTrains(rawTrains);
+                return BasicJsonSerializer.Deserialize<TrainsResponse>(formattedTrains);
             }
         }
 
-        public async Task<string> GetWagons(UzContext context, int stationFromId, int stationToId, DateTime date, string trainId, int trainType, string wagonType) {
+        public async Task<WagonsResponse> GetWagons(UzContext context, int stationFromId, int stationToId, DateTime date, string trainNumber, int trainType, string wagonType) {
             using (CookieSupportatbleHttpClient client = CreateHttpClient(context)) {
                 client.SetCookie(context.Cookie);
                 var content = new FormUrlEncodedContent(
@@ -64,7 +66,7 @@ namespace EasyTicket.SharedResources.Infrastructure {
                         {"station_id_from", stationFromId.ToString()},
                         {"station_id_till", stationToId.ToString()},
                         {"date_dep", date.ToUnixTimestamp().ToString(CultureInfo.InvariantCulture)},
-                        {"train", trainId },
+                        {"train", trainNumber },
                         {"model", trainType.ToString()},
                         {"coach_type", wagonType},
                         {"round_trip", "0"},
@@ -73,11 +75,12 @@ namespace EasyTicket.SharedResources.Infrastructure {
 
                 HttpResponseMessage response = client.PostAsync(UrlWagons, content).Result;
                 string rawWagons = await response.Content.ReadAsStringAsync();
-                return ResponseFormatter.FormatWagons(rawWagons);
+                string formattedWagons = ResponseFormatter.FormatWagons(rawWagons);
+                return BasicJsonSerializer.Deserialize<WagonsResponse>(formattedWagons);
             }
         }
 
-        public async Task<string> GetPlaces(UzContext context, int stationFromId, int stationToId, DateTime date, string trainId, int wagonNumber, string coachClass, int coachType) {
+        public async Task<PlacesResponse> GetPlaces(UzContext context, int stationFromId, int stationToId, DateTime date, string trainNumber, int wagonNumber, string coachClass, int coachType) {
             using (CookieSupportatbleHttpClient client = CreateHttpClient(context)) {
                 client.SetCookie(context.Cookie);
                 var content = new FormUrlEncodedContent(
@@ -85,7 +88,7 @@ namespace EasyTicket.SharedResources.Infrastructure {
                         {"station_id_from", stationFromId.ToString()},
                         {"station_id_till", stationToId.ToString()},
                         {"date_dep", date.ToUnixTimestamp().ToString(CultureInfo.InvariantCulture)},
-                        {"train", trainId },
+                        {"train", trainNumber },
                         {"coach_num", wagonNumber.ToString()},
                         {"coach_class", coachClass},
                         {"coach_type_id", coachType.ToString()},
@@ -94,7 +97,8 @@ namespace EasyTicket.SharedResources.Infrastructure {
 
                 HttpResponseMessage response = client.PostAsync(UrlPlaces, content).Result;
                 string rawPlaces = await response.Content.ReadAsStringAsync();
-                return ResponseFormatter.FormatPlaces(rawPlaces);
+                string formattedPlaces = ResponseFormatter.FormatPlaces(rawPlaces);
+                return BasicJsonSerializer.Deserialize<PlacesResponse>(formattedPlaces);
             }
         }
 

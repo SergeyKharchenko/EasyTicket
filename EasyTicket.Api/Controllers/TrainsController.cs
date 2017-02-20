@@ -4,6 +4,7 @@ using System.Web.Http;
 using EasyTicket.Api.Dto;
 using EasyTicket.SharedResources;
 using EasyTicket.SharedResources.Infrastructure;
+using EasyTicket.SharedResources.Models.Responses;
 
 namespace EasyTicket.Api.Controllers {
     public class TrainsController : BaseController {
@@ -14,9 +15,9 @@ namespace EasyTicket.Api.Controllers {
         }
 
         // POST api/trains
-        public async Task<HttpResponseMessage> Post([FromBody]TrainsRequestDto requestDto) {
+        public async Task<IHttpActionResult> Post([FromBody]TrainsRequestDto requestDto) {
             UzContext context = await UZ.GetUZContext();
-            string trains = await UZ.GetTrains(context, requestDto.StationFromId, requestDto.StationToId, requestDto.DateTime);
+            TrainsResponse trains = await UZ.GetTrains(context, requestDto.StationFromId, requestDto.StationToId, requestDto.DateTime);
             return Json(trains);
         }
     }

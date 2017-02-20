@@ -52,9 +52,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\BasicJsonSerializer.cs" />
     <Compile Include="Infrastructure\CookieSupportatbleHttpClient.cs" />
     <Compile Include="DateExtensions.cs" />
-    <Compile Include="Models\Responses\Trains.cs" />
+    <Compile Include="Infrastructure\UzFormatConverter.cs" />
+    <Compile Include="Models\Responses\PlacesResponse.cs" />
+    <Compile Include="Models\Responses\TrainsResponse.cs" />
+    <Compile Include="Models\Responses\WagonsResponse.cs" />
     <Compile Include="Models\Tables\Request.cs" />
     <Compile Include="WagonType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
