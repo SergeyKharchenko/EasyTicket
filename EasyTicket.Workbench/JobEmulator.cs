@@ -12,7 +12,7 @@ namespace EasyTicket.Workbench {
         public async void Run() {
             while (true) {
                 TicketChecker.Check();
-                await Task.Delay(10000);
+                await Task.Delay(100000);
             }
         }
     }

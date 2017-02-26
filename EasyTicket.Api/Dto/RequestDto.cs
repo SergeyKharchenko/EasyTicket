@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using EasyTicket.SharedResources;
+using EasyTicket.SharedResources.Enums;
 using EasyTicket.SharedResources.Models;
 
 namespace EasyTicket.Api.Dto {
@@ -31,5 +32,7 @@ namespace EasyTicket.Api.Dto {
             get { return DateTime.ParseExact(Date, "dd.MM.yyyy", CultureInfo.InvariantCulture); }
             set { Date = value.ToString("dd.MM.yyyy"); }
         }
+        [Required]
+        public SearchType SearchType { get; set; }
     }
 }

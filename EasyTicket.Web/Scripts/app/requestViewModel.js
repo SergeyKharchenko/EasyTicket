@@ -25,16 +25,16 @@
     this.surname = ko.observable("Харченко");
     this.email = ko.observable("hsvlis4@gmail.com");
 
-    var Wagon = function(type, typeId) {
-        this.type = type;
-        this.typeId = typeId;
+    var KeyValuePair = function(text, value) {
+        this.text = text;
+        this.value = value;
     };
 
     this.wagons = ko.observableArray([
-        new Wagon("Плацкарт", "Economy"),
-        new Wagon("Купэ", "Coupe")
+        new KeyValuePair("Плацкарт", "Economy"),
+        new KeyValuePair("Купэ", "Coupe")
     ]);
-    this.selectedWagon = ko.observable();
+    this.selectedWagon = ko.observable(this.wagons()[0].value);
 
     var places = [];
     for (var i = 0; i < 20; i++) {
@@ -42,6 +42,12 @@
     }
     this.places = ko.observableArray(places);
     this.selectedPlaces = ko.observableArray([4]);
+
+   this.searchTypes = ko.observableArray([
+        new KeyValuePair("Любой из", "Any"),
+        new KeyValuePair("Все", "All")
+    ]);
+    this.selectedSearchType = ko.observable(this.searchTypes()[0].value);
 
     this.loading = ko.observable(false);
 
@@ -67,8 +73,9 @@
             passangerName: viewModel.name(),
             passangerSurname: viewModel.surname(),
             passangerEmail: viewModel.email(),
-            wagonType: viewModel.selectedWagon().typeId,
-            places: viewModel.selectedPlaces()
+            wagonType: viewModel.selectedWagon(),
+            places: viewModel.selectedPlaces(),
+            searchType: viewModel.selectedSearchType()
         };
         viewModel.uzClient.sendRequest(request, function() {
             console.log("request was successfully sent");

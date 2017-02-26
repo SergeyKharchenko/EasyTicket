@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyTicket.SharedResources;
+using EasyTicket.SharedResources.Enums;
 using EasyTicket.SharedResources.Infrastructure;
 using EasyTicket.SharedResources.Models.Tables;
 using EasyTicket.SharedResources.Models.Responses;
@@ -17,27 +19,52 @@ namespace ProcessRequestJob {
 
         public async void Check() {
             UzContext uzContext = await _uzClient.GetUZContext();
-            foreach (Request request in GetRequests()) {
+            Request[] requests = GetRequests();
+            Console.WriteLine($"Checking requests: {requests.Length}");
+            foreach (Request request in requests) {
                 CheckResult checkResult = await CheckTicket(uzContext, request);
-                if (checkResult.Found) {
-                    Console.WriteLine(checkResult);
+                switch (checkResult.RequestState) {
+                    case RequestState.Expired: {
+                        NotifyExpired(request);
+                        break;
+                    }
+                    case RequestState.Found: {
+                        NotifyFound(request);
+                        Console.WriteLine(checkResult);
+                        break;
+                    }
                 }
+                request.State = checkResult.RequestState;
+                UpdateRequest(request);
             }
         }
 
         private Request[] GetRequests() {
             using (var uzDbContext = new UzDbContext()) {
-                return uzDbContext.Requests.ToArray();
+                return uzDbContext.Requests.Where(request => request.State == RequestState.Requested).ToArray();
+            }
+        }
+
+        private void UpdateRequest(Request request) {
+            using (var uzDbContext = new UzDbContext()) {
+                uzDbContext.Entry(request).State = EntityState.Modified;
+                uzDbContext.SaveChanges();
             }
         }
 
         private async Task<CheckResult> CheckTicket(UzContext uzContext, Request request) {
+            if (IsRequestExpired(request)) {
+                return new CheckResult {
+                    RequestState = RequestState.Expired
+                };
+            }
+
             var resultedTrains = new List<Train>();
 
             string wagonTypeCode = UzFormatConverter.Get(request.WagonType);
             ICollection<TrainsResponse.Train> trains = await GetTrains(uzContext, request, wagonTypeCode);
             foreach (TrainsResponse.Train train in trains) {
-                ICollection<WagonsResponse.Wagon> wagons = await GetWagons(uzContext, train, wagonTypeCode, request.Places);
+                ICollection<WagonsResponse.Wagon> wagons = await GetWagons(uzContext, train, wagonTypeCode, request);
                 if (!wagons.Any()) {
                     continue;
                 }
@@ -46,8 +73,13 @@ namespace ProcessRequestJob {
             }
             return new CheckResult {
                 Trains = resultedTrains,
-                Places = request.Places
+                Places = request.Places,
+                RequestState = resultedTrains.Any(train => train.Wagons.Any()) ? RequestState.Found : RequestState.Requested
             };
+        }
+
+        private bool IsRequestExpired(Request request) {
+            return request.DateTime < DateTime.Today;
         }
 
         private async Task<ICollection<TrainsResponse.Train>> GetTrains(UzContext uzContext, Request request, string wagonTypeId) {
@@ -59,20 +91,20 @@ namespace ProcessRequestJob {
                     select train).ToList();
         }
 
-        private async Task<ICollection<WagonsResponse.Wagon>> GetWagons(UzContext uzContext, TrainsResponse.Train train, string wagonTypeId, int[] requestedPlaces) {
+        private async Task<ICollection<WagonsResponse.Wagon>> GetWagons(UzContext uzContext, TrainsResponse.Train train, string wagonTypeId, Request request) {
             WagonsResponse wagonsResponse =
                 await _uzClient.GetWagons(uzContext, train.StationFrom.Id,
                                           train.StationTo.Id,
                                           train.StationFrom.DateTime,
                                           train.TrainNumber, train.TrainType, wagonTypeId);
 
-            return await FilterWagonsByAvailablePlaces(uzContext, train, requestedPlaces, wagonsResponse);
+            return await FilterWagonsByAvailablePlaces(uzContext, train, wagonsResponse, request);
         }
 
-        private async Task<ICollection<WagonsResponse.Wagon>> FilterWagonsByAvailablePlaces(UzContext uzContext, TrainsResponse.Train train, int[] requestedPlaces, WagonsResponse wagonsResponse) {
+        private async Task<ICollection<WagonsResponse.Wagon>> FilterWagonsByAvailablePlaces(UzContext uzContext, TrainsResponse.Train train, WagonsResponse wagonsResponse, Request request) {
             List<WagonsResponse.Wagon> wagons = new List<WagonsResponse.Wagon>();
             foreach (WagonsResponse.Wagon wagon in wagonsResponse.Wagons) {
-                bool isPlaceAvailable = await IsPlaceAvailable(uzContext, train, wagon, requestedPlaces);
+                bool isPlaceAvailable = await IsPlaceAvailable(uzContext, train, wagon, request);
                 if (isPlaceAvailable) {
                     wagons.Add(wagon);
                 }
@@ -80,12 +112,19 @@ namespace ProcessRequestJob {
             return wagons;
         }
 
-        private async Task<bool> IsPlaceAvailable(UzContext uzContext, TrainsResponse.Train train, WagonsResponse.Wagon wagon, int[] requestedPlaces) {
+        private async Task<bool> IsPlaceAvailable(UzContext uzContext, TrainsResponse.Train train, WagonsResponse.Wagon wagon, Request request) {
             PlacesResponse placesResponse =
                 await _uzClient.GetPlaces(uzContext, train.StationFrom.Id, train.StationTo.Id,
                                           train.StationFrom.DateTime,
                                           train.TrainNumber, wagon.Number, wagon.CoachClass, wagon.CoachType);
-            return !requestedPlaces.Except(placesResponse.Places).Any();
+            switch (request.SearchType) {
+                case SearchType.Any: {
+                    return request.Places.Intersect(placesResponse.Places).Any();
+                }
+                default: {
+                    return !request.Places.Except(placesResponse.Places).Any();
+                }
+            }
         }
 
         private Train ConvertToResultedTrain(TrainsResponse.Train train, ICollection<WagonsResponse.Wagon> wagons, string wagonTypeCode) {
@@ -109,11 +148,18 @@ namespace ProcessRequestJob {
             };
         }
 
-        private class CheckResult {
-            public bool Found => Trains.Any(train => train.Wagons.Any());
+        private void NotifyExpired(Request request) {
+        }
 
+        private async void NotifyFound(Request request) {
+            await MailSender.Send(request);
+        }
+
+        private class CheckResult {
             public ICollection<Train> Trains { get; set; }
             public int[] Places { get; set; }
+
+            public RequestState RequestState { get; set; }
 
             public override string ToString() {
                 return $"For places [{string.Join(", ", Places)}] there are next {nameof(Trains)}:{Environment.NewLine}" +

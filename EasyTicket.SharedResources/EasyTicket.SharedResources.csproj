@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\RequestState.cs" />
+    <Compile Include="Enums\SearchType.cs" />
     <Compile Include="Infrastructure\BasicJsonSerializer.cs" />
     <Compile Include="Infrastructure\CookieSupportatbleHttpClient.cs" />
     <Compile Include="DateExtensions.cs" />
@@ -60,7 +62,7 @@
     <Compile Include="Models\Responses\TrainsResponse.cs" />
     <Compile Include="Models\Responses\WagonsResponse.cs" />
     <Compile Include="Models\Tables\Request.cs" />
-    <Compile Include="WagonType.cs" />
+    <Compile Include="Enums\WagonType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\ResponseFormatter.cs" />
     <Compile Include="Infrastructure\ScriptEngine .cs" />
