@@ -1,4 +1,5 @@
 using System.Reflection;
+using EasyTicket.SharedResources.Enums;
 
 namespace EasyTicket.SharedResources.Infrastructure {
     public static class UzFormatConverter {

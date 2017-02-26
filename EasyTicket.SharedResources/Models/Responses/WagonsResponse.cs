@@ -2,7 +2,7 @@
 
 namespace EasyTicket.SharedResources.Models.Responses {
     public class WagonsResponse {
-        public ICollection<Wagon> Wagons { get; set; }
+        public ICollection<Wagon> Wagons { get; set; } = new List<Wagon>();
 
         public class Wagon {
             public int Number { get; set; }

@@ -28,10 +28,11 @@
             <input type="text" placeholder="Почта"  data-bind="value: email"/>
         </p>
 
-<p>
+        <p>
             Тип вагона:
             <select data-bind="options: wagons,
-                       optionsText: 'type',
+                       optionsText: 'text',
+                       optionsValue: 'value',
                        value: selectedWagon,
                        optionsCaption: 'Выберите тип вагона...'"></select>
         </p>
@@ -42,6 +43,15 @@
                        selectedOptions: selectedPlaces,
                        optionsCaption: 'Выберите номер места...'"
                     multiple size="10"></select>
+        </p>
+
+        <p>
+            Тип вагона:
+            <select data-bind="options: searchTypes,
+                       optionsText: 'text',
+                       optionsValue: 'value',
+                       value: selectedSearchType,
+                       optionsCaption: 'Выберите способ поиска...'"></select>
         </p>
 
         <button class="btn btn-default" data-bind="click: buy, enable: canBuy">Купить</button>

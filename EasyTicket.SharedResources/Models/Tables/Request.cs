@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using EasyTicket.SharedResources.Enums;
 
 namespace EasyTicket.SharedResources.Models.Tables {
     public class Request {
@@ -32,6 +33,14 @@ namespace EasyTicket.SharedResources.Models.Tables {
         public int[] Places {
             get { return PlacesString.Split(';').Select(int.Parse).ToArray(); }
             set { PlacesString = string.Join(";", value); }
+        }
+        [Required]
+        public RequestState State { get; set; }
+        [Required]
+        public SearchType SearchType { get; set; }
+
+        public override string ToString() {
+            return $"{nameof(StationFromTitle)}: {StationFromTitle}, {nameof(StationToTitle)}: {StationToTitle}, {nameof(PassangerName)}: {PassangerName}, {nameof(PassangerSurname)}: {PassangerSurname}, {nameof(PassangerEmail)}: {PassangerEmail}, {nameof(WagonType)}: {WagonType}, {nameof(DateTime)}: {DateTime}, {nameof(PlacesString)}: {PlacesString}, {nameof(Places)}: {Places}, {nameof(State)}: {State}, {nameof(SearchType)}: {SearchType}";
         }
     }
 }
