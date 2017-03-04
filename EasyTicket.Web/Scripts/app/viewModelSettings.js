@@ -6,7 +6,8 @@
         minimumInputLength: 3,
         placeholder: "Станция отправления",
         ajax: {
-            url: "http://easyticketuzapi.azurewebsites.net/api/Stations/",
+            //url: "http://easyticketuzapi.azurewebsites.net/api/Stations/",
+            url: "http://localhost:7552/api/Stations/",
             dataType: 'json',
             type: "POST",
             params: {

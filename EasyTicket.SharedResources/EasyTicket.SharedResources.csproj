@@ -59,6 +59,7 @@
     <Compile Include="DateExtensions.cs" />
     <Compile Include="Infrastructure\UzFormatConverter.cs" />
     <Compile Include="Models\Responses\PlacesResponse.cs" />
+    <Compile Include="Models\Responses\StationsResonse.cs" />
     <Compile Include="Models\Responses\TrainsResponse.cs" />
     <Compile Include="Models\Responses\WagonsResponse.cs" />
     <Compile Include="Models\Tables\Request.cs" />
