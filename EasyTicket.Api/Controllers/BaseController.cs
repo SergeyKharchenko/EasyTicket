@@ -17,6 +17,7 @@ namespace EasyTicket.Api.Controllers {
             response.Content = new StringContent(content, Encoding.UTF8, "application/json");
             return response;
         }
+
         protected IHttpActionResult Json(object content) {
             return Json(content, new JsonSerializerSettings {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()

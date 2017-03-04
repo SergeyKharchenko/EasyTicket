@@ -1,15 +1,16 @@
 ﻿using System;
+using EasyTicket.SharedResources.Models.Responses;
 using Newtonsoft.Json.Linq;
 
 namespace EasyTicket.SharedResources.Infrastructure {
     public class ResponseFormatter {
-        public string FormatStations(string rawStations) {
-            JObject rawStationsResponse = JObject.Parse(rawStations);
+        public StationsResonse FormatStations(string rawStations) {
+            JArray rawStationsResponse = JArray.Parse(rawStations);
             var stations = new JArray();
-            foreach (JToken jToken in rawStationsResponse.First.First) {
+            foreach (JToken jToken in rawStationsResponse) {
                 JObject station = JObject.FromObject(new {
-                    id = jToken["station_id"],
-                    title = jToken["title"]
+                    id = jToken["value"],
+                    title = jToken["label"]
                 });
                 stations.Add(station);
             }
@@ -18,7 +19,7 @@ namespace EasyTicket.SharedResources.Infrastructure {
                     "stations", stations
                 }
             };
-            return stationsResponse.ToString();
+            return BasicJsonSerializer.Deserialize<StationsResonse>(stationsResponse.ToString());
         }
 
         public string FormatTrains(string rawTrains) {

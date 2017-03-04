@@ -28,10 +28,10 @@ namespace EasyTicket.SharedResources.Infrastructure {
             }
         }
 
-        public async Task<string> GetStations(UzContext context, string term) {
+        public async Task<StationsResonse> GetStations(UzContext context, string term) {
             string normalizedTerm = HttpUtility.UrlEncode(HttpUtility.UrlDecode(term));
             using (CookieSupportatbleHttpClient client = CreateHttpClient(context)) {
-                HttpResponseMessage response = await client.GetAsync(UrlStation + normalizedTerm + "/");
+                HttpResponseMessage response = await client.GetAsync(UrlStation + $"?term={normalizedTerm}");
                 string rawStations = await response.Content.ReadAsStringAsync();
                 return ResponseFormatter.FormatStations(rawStations);
             }
@@ -39,7 +39,6 @@ namespace EasyTicket.SharedResources.Infrastructure {
 
         public async Task<TrainsResponse> GetTrains(UzContext context, int stationFromId, int stationToId, DateTime date) {
             using (CookieSupportatbleHttpClient client = CreateHttpClient(context)) {
-                client.SetCookie(context.Cookie);
                 var content = new FormUrlEncodedContent(
                     new Dictionary<string, string> {
                         {"station_id_from", stationFromId.ToString()},
@@ -60,7 +59,6 @@ namespace EasyTicket.SharedResources.Infrastructure {
 
         public async Task<WagonsResponse> GetWagons(UzContext context, int stationFromId, int stationToId, DateTime date, string trainNumber, int trainType, string wagonType) {
             using (CookieSupportatbleHttpClient client = CreateHttpClient(context)) {
-                client.SetCookie(context.Cookie);
                 var content = new FormUrlEncodedContent(
                     new Dictionary<string, string> {
                         {"station_id_from", stationFromId.ToString()},
@@ -82,7 +80,6 @@ namespace EasyTicket.SharedResources.Infrastructure {
 
         public async Task<PlacesResponse> GetPlaces(UzContext context, int stationFromId, int stationToId, DateTime date, string trainNumber, int wagonNumber, string coachClass, int coachType) {
             using (CookieSupportatbleHttpClient client = CreateHttpClient(context)) {
-                client.SetCookie(context.Cookie);
                 var content = new FormUrlEncodedContent(
                     new Dictionary<string, string> {
                         {"station_id_from", stationFromId.ToString()},
@@ -109,6 +106,7 @@ namespace EasyTicket.SharedResources.Infrastructure {
                 httpClient.DefaultRequestHeaders.Add("GV-Ajax", "1");
                 httpClient.DefaultRequestHeaders.Add("GV-Referer", BaseUrl);
                 httpClient.DefaultRequestHeaders.Add("GV-Token", context.Token);
+                httpClient.SetCookie(context.Cookie);
             }
 
             return httpClient;
