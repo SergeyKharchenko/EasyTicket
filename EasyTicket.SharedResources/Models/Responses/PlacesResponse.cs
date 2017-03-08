@@ -2,6 +2,6 @@
 
 namespace EasyTicket.SharedResources.Models.Responses {
     public class PlacesResponse {
-        public ICollection<int> Places { get; set; }
+        public ICollection<int> Places { get; set; } = new List<int>();
     }
 }

@@ -16,8 +16,8 @@ namespace EasyTicket.Api.Controllers {
 
         // POST api/wagons
         public async Task<IHttpActionResult> Post([FromBody]WagonsRequestDto requestDto) {
-            UzContext context = await UZ.GetUZContext();
-            WagonsResponse wagons = await UZ.GetWagons(context, requestDto.StationFromId, requestDto.StationToId, requestDto.DateTime,
+            UzContext context = await UZ.GetUZContextAsync();
+            WagonsResponse wagons = await UZ.GetWagonsAsync(context, requestDto.StationFromId, requestDto.StationToId, requestDto.DateTime,
                                                requestDto.TrainNumber, requestDto.TrainType, requestDto.WagonType);
             return Json(wagons);
         }

@@ -18,7 +18,7 @@ namespace ProcessRequestJob {
         }
 
         public async void Check() {
-            UzContext uzContext = await _uzClient.GetUZContext();
+            UzContext uzContext = await _uzClient.GetUZContextAsync();
             Request[] requests = GetRequests();
             Console.WriteLine($"Checking requests: {requests.Length}");
             foreach (Request request in requests) {
@@ -83,7 +83,7 @@ namespace ProcessRequestJob {
         }
 
         private async Task<ICollection<TrainsResponse.Train>> GetTrains(UzContext uzContext, Request request, string wagonTypeId) {
-            TrainsResponse trainsResponse = await _uzClient.GetTrains(uzContext, request.StationFromId, request.StationToId,
+            TrainsResponse trainsResponse = await _uzClient.GetTrainsAsync(uzContext, request.StationFromId, request.StationToId,
                                                                       request.DateTime);
             return (from train in trainsResponse.Trains
                     from wagon in train.Wagons
@@ -93,7 +93,7 @@ namespace ProcessRequestJob {
 
         private async Task<ICollection<WagonsResponse.Wagon>> GetWagons(UzContext uzContext, TrainsResponse.Train train, string wagonTypeId, Request request) {
             WagonsResponse wagonsResponse =
-                await _uzClient.GetWagons(uzContext, train.StationFrom.Id,
+                await _uzClient.GetWagonsAsync(uzContext, train.StationFrom.Id,
                                           train.StationTo.Id,
                                           train.StationFrom.DateTime,
                                           train.TrainNumber, train.TrainType, wagonTypeId);
@@ -114,7 +114,7 @@ namespace ProcessRequestJob {
 
         private async Task<bool> IsPlaceAvailable(UzContext uzContext, TrainsResponse.Train train, WagonsResponse.Wagon wagon, Request request) {
             PlacesResponse placesResponse =
-                await _uzClient.GetPlaces(uzContext, train.StationFrom.Id, train.StationTo.Id,
+                await _uzClient.GetPlacesAsync(uzContext, train.StationFrom.Id, train.StationTo.Id,
                                           train.StationFrom.DateTime,
                                           train.TrainNumber, wagon.Number, wagon.CoachClass, wagon.CoachType);
             switch (request.SearchType) {
