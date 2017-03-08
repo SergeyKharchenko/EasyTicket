@@ -22,7 +22,7 @@ namespace EasyTicket.SharedResources.Infrastructure {
             return BasicJsonSerializer.Deserialize<StationsResonse>(stationsResponse.ToString());
         }
 
-        public string FormatTrains(string rawTrains) {
+        public TrainsResponse FormatTrains(string rawTrains) {
             JObject rawTrainsResponse = JObject.Parse(rawTrains);
             var trains = new JArray();
             foreach (JToken jTrainToken in rawTrainsResponse.First.First) {
@@ -49,12 +49,8 @@ namespace EasyTicket.SharedResources.Infrastructure {
                 });
                 trains.Add(train);
             }
-            var trainsResponse = new JObject {
-                {
-                    "trains", trains
-                }
-            };
-            return trainsResponse.ToString();
+            var trainsResponse = new JObject {{"trains", trains}};
+            return BasicJsonSerializer.Deserialize<TrainsResponse>(trainsResponse.ToString());
         }
 
         private static JObject FormatTrainStation(JToken jStationToken) {
@@ -65,7 +61,7 @@ namespace EasyTicket.SharedResources.Infrastructure {
             });
         }
 
-        public string FormatWagons(string rawWagons) {
+        public WagonsResponse FormatWagons(string rawWagons) {
             JObject jRawWagons = JObject.Parse(rawWagons);
             var wagons = new JArray();
 
@@ -82,20 +78,14 @@ namespace EasyTicket.SharedResources.Infrastructure {
                 });
                 wagons.Add(wagon);
             }
-            return new JObject {
-                {
-                    "wagons", wagons
-                }
-            }.ToString();
+            var wagonResponse = new JObject {{"wagons", wagons}};
+            return BasicJsonSerializer.Deserialize<WagonsResponse>(wagonResponse.ToString());
         }
 
-        public string FormatPlaces(string rawPlaces) {
+        public PlacesResponse FormatPlaces(string rawPlaces) {
             JObject jRawPlaces = JObject.Parse(rawPlaces);
-            return new JObject {
-                {
-                    "places", jRawPlaces.First.First.First.First.First.First.DeepClone()
-                }
-            }.ToString();
+            var placesResponse = new JObject { { "places", jRawPlaces.First.First.First.First.First.First.DeepClone() }};
+            return BasicJsonSerializer.Deserialize<PlacesResponse>(placesResponse.ToString());
         }
     }
 }

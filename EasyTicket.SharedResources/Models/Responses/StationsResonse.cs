@@ -1,8 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 
 namespace EasyTicket.SharedResources.Models.Responses {
     public class StationsResonse {
-        public Collection<Station> Stations { get; set; }
+        public ICollection<Station> Stations { get; set; } = new List<Station>();
 
         public class Station {
             public int Id { get; set; }

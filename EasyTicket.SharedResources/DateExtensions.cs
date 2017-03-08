@@ -9,9 +9,10 @@ namespace EasyTicket.SharedResources {
         }
 
         public static double ToUnixTimestamp(this DateTime dateTime) {
+            DateTime unspecifiedDateTime = new DateTime(dateTime.Ticks, DateTimeKind.Unspecified);
             TimeZoneInfo usersTimeZone = TimeZoneInfo.FindSystemTimeZoneById("E. Europe Standard Time");
-            DateTime localDateTime = TimeZoneInfo.ConvertTimeToUtc(dateTime, usersTimeZone);
-            return (localDateTime - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+            DateTime utcDateTime = TimeZoneInfo.ConvertTimeToUtc(unspecifiedDateTime, usersTimeZone);
+            return (utcDateTime - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EasyTicket.SharedResources.Models.Responses {
     public class TrainsResponse {
-        public ICollection<Train> Trains { get; set; }
+        public ICollection<Train> Trains { get; set; } = new List<Train>();
 
         public class Train {
             public string TrainNumber { get; set; }
