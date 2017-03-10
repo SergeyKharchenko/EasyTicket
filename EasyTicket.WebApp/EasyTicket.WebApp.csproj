@@ -30,7 +30,12 @@
     <Content Include="wwwroot\fonts\roboto\Roboto-Thin.ttf" />
     <Content Include="wwwroot\fonts\roboto\Roboto-Thin.woff" />
     <Content Include="wwwroot\fonts\roboto\Roboto-Thin.woff2" />
+    <Content Include="wwwroot\images\ajax-loader %281%29.gif" />
+    <Content Include="wwwroot\images\loading.gif" />
     <Content Include="wwwroot\scripts\application.jsx" />
+    <Content Include="wwwroot\scripts\stationSelect.jsx">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="wwwroot\scripts\loadingView.jsx" />
     <Content Include="wwwroot\scripts\mainView.jsx" />
     <Content Include="wwwroot\scripts\requestView - Copy.jsx" />
@@ -51,9 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>
