@@ -30,8 +30,11 @@
     <Content Include="wwwroot\fonts\roboto\Roboto-Thin.ttf" />
     <Content Include="wwwroot\fonts\roboto\Roboto-Thin.woff" />
     <Content Include="wwwroot\fonts\roboto\Roboto-Thin.woff2" />
-    <Content Include="wwwroot\scripts\site.js" />
-    <Content Include="wwwroot\scripts\site.jsx" />
+    <Content Include="wwwroot\scripts\application.jsx" />
+    <Content Include="wwwroot\scripts\loadingView.jsx" />
+    <Content Include="wwwroot\scripts\mainView.jsx" />
+    <Content Include="wwwroot\scripts\requestView - Copy.jsx" />
+    <Content Include="wwwroot\scripts\requestView.jsx" />
     <Content Include="wwwroot\styles\site.scss" />
   </ItemGroup>
   <ItemGroup>
