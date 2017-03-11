@@ -10,6 +10,6 @@ export default class LoadingView extends React.Component {
             <div>
                 <p>Loading...</p>
             </div>
-        )
+        );
     }
 }

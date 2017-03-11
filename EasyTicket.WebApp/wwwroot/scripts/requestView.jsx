@@ -11,6 +11,6 @@ export default class RequestView extends React.Component {
                 <p>This is Request</p>
                 <p><a href='/#/main'>Go to Main page</a></p>
             </div>
-        )
+        );
     }
 }
