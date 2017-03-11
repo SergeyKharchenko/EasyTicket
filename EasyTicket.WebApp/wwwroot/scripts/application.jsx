@@ -33,13 +33,13 @@ export default class Application extends React.Component {
     render() {
         switch(this.state.view) {
             case 'main': {
-                return <MainView />
+                return <MainView/>;
             }        
             case 'request': {
-                return <RequestView />
+                return <RequestView/>;
             }
             default: {
-                return <LoadingView />
+                return <LoadingView/>;
             }
         }
     }
