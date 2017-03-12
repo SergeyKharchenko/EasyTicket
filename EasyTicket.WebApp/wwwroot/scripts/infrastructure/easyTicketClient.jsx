@@ -10,10 +10,9 @@
 
 import HttpClient from './httpClient';
 
-export default class UzClient {
+export default class EasyTicketClient {
     constructor() {
-        //this._httpClient = new HttpClient("http://localhost:7552/api/");
-        this._httpClient = new HttpClient('http://easyticketuzapi.azurewebsites.net/api/');
+        this._httpClient = new HttpClient(window.easyTicket.config.apiUrl);
     }
 
     getStations(term, successCallback, failCallback) {

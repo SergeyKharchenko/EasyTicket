@@ -1,8 +1,4 @@
-﻿@import '~materialize-scss';
-
-body {
-    background-color: antiquewhite;
-}
+﻿@import './materialize';
 
 .station-select {
     position: relative;
@@ -24,22 +20,15 @@ body {
         }
     }
 
-    ul {
+    .collection {
         position: absolute;
-        border: 1px solid black;
-        top: calc(3rem - 10px);
+        z-index: 2;
+        top: calc(3rem - 8px);
         left: 0;
         right: 0;
-        border-radius: 3px;
-        background-color: white;
 
-        li {
-            padding: 2px 5px;
-
-            &:hover {
-                background-color: aquamarine;
-                cursor: pointer;
-            }
+        a {
+            cursor: pointer;
         }
     }
 }
