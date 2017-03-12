@@ -34,12 +34,7 @@
     <Content Include="wwwroot\scripts\application.jsx" />
     <Content Include="wwwroot\scripts\easyTicketClient.jsx" />
     <Content Include="wwwroot\scripts\httpClient.jsx" />
-    <Content Include="wwwroot\scripts\stationSelect.jsx">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="wwwroot\scripts\loadingView.jsx" />
-    <Content Include="wwwroot\scripts\mainView.jsx" />
-    <Content Include="wwwroot\scripts\requestView.jsx" />
     <Content Include="wwwroot\scripts\uzClient.jsx" />
     <Content Include="wwwroot\styles\site.scss" />
   </ItemGroup>
