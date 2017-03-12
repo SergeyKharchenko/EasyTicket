@@ -32,6 +32,7 @@
     <Content Include="wwwroot\fonts\roboto\Roboto-Thin.woff2" />
     <Content Include="wwwroot\images\loading.gif" />
     <Content Include="wwwroot\scripts\application.jsx" />
+    <Content Include="wwwroot\scripts\easyTicketClient.jsx" />
     <Content Include="wwwroot\scripts\httpClient.jsx" />
     <Content Include="wwwroot\scripts\stationSelect.jsx">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

@@ -1,8 +1,8 @@
 ﻿import Sammy from 'sammy'
 import React from 'react';
-import LoadingView from './loadingView';
-import MainView from './mainView';
-import RequestView from './requestView';
+import LoadingView from './views/loadingView';
+import MainView from './views/mainView';
+import RequestView from './views/requestView';
 
 export default class Application extends React.Component {
     constructor(props) {

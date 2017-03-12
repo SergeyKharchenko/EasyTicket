@@ -5,9 +5,12 @@ import './styles/site'
 // scripts
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Utils from './scripts/infrastructure/utils';
 import Application from './scripts/application';
 
 // start
 $(function() {
+    $.extend(window.easyTicket, { utils: new Utils() });
+
     ReactDOM.render(<Application />, document.getElementById('container'));
 });

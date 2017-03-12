@@ -1,28 +1,22 @@
 ﻿import React from 'react';
 import 'materialize-css';
-import UzClient from './uzClient'
+import EasyTicketClient from './../infrastructure/easyTicketClient'
+import Error from './../infrastructure/error';
 
 export default class StationSelect extends React.Component {
     constructor(props) {
         super(props);
         this.minLength = 3;
-        this.inputId = this.generateId();
-        this._uzClient = new UzClient();
+        this.inputId = window.easyTicket.utils.generateId();
+        this._easyTicketClient = new EasyTicketClient();
 
         this.state = {
             loading: false,
             opened: false,
             selectedStation: null,
-            items: []
+            items: [],
+            error: null
         }
-    }
-
-    generateId() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
-            c => {
-                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
     }
 
     componentDidMount() {
@@ -37,7 +31,8 @@ export default class StationSelect extends React.Component {
     }
 
     render() {
-        var itemsHtml = this.getItemsHtml();
+        var itemsHtml = this.getItemsHtml(),
+            error = this.getErrorHtml();
         return (
             <div className="station-select" id={this.inputId}>
                 <div className={'input-field' + (this.state.loading ? ' loading' : '')}>
@@ -45,6 +40,7 @@ export default class StationSelect extends React.Component {
                     <label htmlFor={this.inputId + "-input"}>{this.props.label}</label>
                 </div>
                 {itemsHtml}
+                {error}
             </div>
         );
     }
@@ -54,41 +50,43 @@ export default class StationSelect extends React.Component {
             itemsHtml = '';
         if (this.state.opened) {
             for (var i in this.state.items) {
-                var item = <li key={i}>
-                               <StationSelectItem data={this.state.items[i]} onClick={this.onItemClick.bind(this)}/>
-                           </li>;
+                var item = <StationSelectItem key={i} data={this.state.items[i]} onClick={this.onItemClick.bind(this)}/>;
                 items.push(item);
             }
             if (items.length) {
-                itemsHtml = <ul>{items}</ul>;
+                itemsHtml = <div className='collection'>{items}</div>;
             }
         }
         return itemsHtml;
     }
 
+    getErrorHtml() {
+        return this.state.error ? <Error text={this.state.error}/> : "";
+    }
+
     onChange(e) {
         var value = e.target.value;
         if (value.length < this.minLength) {
-            this.setState({loading: false});
+            this.setState({ loading: false, opened: false });
             return;
         }
         this.setState({ loading: true });
         var that = this;
-        this._uzClient.getStations(value,
+        this._easyTicketClient.getStations(value,
             data => {
                 that.setState({
-                    loading: false,
+                    loading: false, 
                     items: data.stations,
                     opened: true
                 });
             },
             error => {
-                debugger;
+                that.setState({ loading: false, error: `${error.status}: ${error.statusText}`});
             });
     }
 
     onItemClick(station) {
-        $('#' + this.inputId + "-input").val(station.title);
+        $(`#${this.inputId}-input`).val(station.title);
         this.setState({opened: false});
         this.props.onStationSelected(station);
     }
@@ -101,9 +99,7 @@ class StationSelectItem extends React.Component {
 
     render() {
         return (
-            <div onClick={this.onClick.bind(this)}>
-                {this.props.data.title}
-            </div>
+            <a className="collection-item" onClick={this.onClick.bind(this)}>{this.props.data.title}</a>
         );
     }
 
