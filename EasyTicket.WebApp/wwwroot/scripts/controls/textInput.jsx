@@ -11,9 +11,15 @@ export default class TextInput extends React.Component {
         return (
             <div>
                 {iconHtml}
-                <input id={this.id} type="text" className="validate" />
+                <input id={this.id} type="text" className="validate" onChange={this.onChange.bind(this)}/>
                 <label htmlFor={this.id}>{this.props.label}</label>
             </div>
         );
+    }
+
+    onChange(e) {
+        if (this.props.onChange) {
+            this.props.onChange(e.target.value);
+        }
     }
 }

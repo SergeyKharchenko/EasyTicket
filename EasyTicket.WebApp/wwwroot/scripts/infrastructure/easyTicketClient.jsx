@@ -18,4 +18,8 @@ export default class EasyTicketClient {
     getStations(term, successCallback, failCallback) {
         this._httpClient.sendPost('stations', { term: term }, successCallback, failCallback);
     }
+
+    sendRequest(request, successCallback, failCallback) {
+        this._httpClient.sendPost('request', request, successCallback, failCallback);
+    }
 }

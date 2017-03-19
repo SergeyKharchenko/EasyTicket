@@ -13,8 +13,8 @@ export default class GroupSelectInput extends React.Component {
 
     componentWillUpdate() {
         var $select = $(`#${this.id}`);
-        $select.material_select('destroy');
-        $select.prop('selectedIndex', 0);
+        $select.off('change').material_select('destroy');
+        //$select.prop('selectedIndex', 0);
     }
 
     componentDidUpdate() {
