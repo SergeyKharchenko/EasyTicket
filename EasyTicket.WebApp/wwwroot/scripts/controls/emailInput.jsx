@@ -10,9 +10,15 @@ export default class EmailInput extends React.Component {
         return (
             <div>
                 <i className="material-icons prefix">email</i>
-                <input id={this.id} type="email" className="validate" />
+                <input id={this.id} type="email" className="validate" onChange={this.onChange.bind(this)} />
                 <label htmlFor={this.id} data-error="Неверный формат">{this.props.label}</label>
             </div>
         );
+    }
+
+    onChange(e) {
+        if (this.props.onChange) {
+            this.props.onChange(e.target.value);
+        }
     }
 }

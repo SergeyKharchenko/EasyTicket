@@ -32,3 +32,8 @@
         }
     }
 }
+
+.toast {
+    @extend .green; 
+    @extend .accent-2;
+}

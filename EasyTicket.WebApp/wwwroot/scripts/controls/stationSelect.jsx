@@ -29,10 +29,13 @@ export default class StationSelect extends React.Component {
                 }
             });
     }
-
+    generateErrorHtml(error) {
+        return error ? <Error text={`${error.status}: ${error.statusText}`}/> : "";
+    }
     render() {
         var itemsHtml = this.getItemsHtml(),
-            error = this.getErrorHtml();
+            error = window.easyTicket.utils.generateErrorHtml(this.state.error);
+
         return (
             <div className="station-select" id={this.inputId}>
                 <div className={'input-field' + (this.state.loading ? ' loading' : '')}>
@@ -60,10 +63,6 @@ export default class StationSelect extends React.Component {
         return itemsHtml;
     }
 
-    getErrorHtml() {
-        return this.state.error ? <Error text={this.state.error}/> : "";
-    }
-
     onChange(e) {
         var value = e.target.value;
         if (value.length < this.minLength) {
@@ -81,7 +80,7 @@ export default class StationSelect extends React.Component {
                 });
             },
             error => {
-                that.setState({ loading: false, error: `${error.status}: ${error.statusText}`});
+                that.setState({ loading: false, error: error});
             });
     }
 

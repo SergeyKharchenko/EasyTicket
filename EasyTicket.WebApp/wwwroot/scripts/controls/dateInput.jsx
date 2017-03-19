@@ -8,7 +8,7 @@ export default class DateInput extends React.Component {
     }
 
     componentDidMount() {
-        $(`#${this.id}`).pickadate({
+        var $input = $(`#${this.id}`).pickadate({
             labelMonthNext: 'Следующий месяц',
             labelMonthPrev: 'Предыдущий месяц',
             labelMonthSelect: 'Выберите месяц',
@@ -23,17 +23,28 @@ export default class DateInput extends React.Component {
             close: 'Закрыть',
             firstDay: 1,
 
-            selectMonths: true, // Creates a dropdown to control month
+            selectMonths: true,
+
+            onSet: this.onChange.bind(this)
         });
+
+        var picker = $input.pickadate('picker');
+        picker.set('select', new Date());
     }
 
     render() {
         return (
             <div>
                 <i className="material-icons prefix">schedule</i>
-                <input id={this.id} type="date" className="datepicker" />
+                <input id={this.id} type="date" className="datepicker"/>
                 <label htmlFor={this.id}>{this.props.label}</label>
             </div>
         );
+    }
+
+    onChange(e) {
+        if (this.props.onChange) {
+            this.props.onChange(new Date(e.select));
+        }
     }
 }

@@ -28,3 +28,9 @@
     width: 400px;
     max-width: 400px;
 }
+
+@media #{$small-and-down} {
+  .btn {
+    width: 100%;
+  }
+}
