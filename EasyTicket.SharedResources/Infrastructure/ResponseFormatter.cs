@@ -84,8 +84,24 @@ namespace EasyTicket.SharedResources.Infrastructure {
 
         public PlacesResponse FormatPlaces(string rawPlaces) {
             JObject jRawPlaces = JObject.Parse(rawPlaces);
-            var placesResponse = new JObject { { "places", jRawPlaces.First.First.First.First.First.First.DeepClone() }};
+
+            var jPlaces = (JProperty)jRawPlaces["value"]["places"].First;
+
+            var placesResponse = new JObject {
+                { "placeType", jPlaces.Name },
+                { "places", jPlaces.Value }};
             return BasicJsonSerializer.Deserialize<PlacesResponse>(placesResponse.ToString());
+        }
+
+        public BookPlacesResponse FormatBookPlaces(string rawBookPlaces) {
+            JObject jRawBookPlaces = JObject.Parse(rawBookPlaces);
+
+            var jIsError = (JValue)jRawBookPlaces["error"];
+
+            var placesResponse = new JObject {
+                { "isError", jIsError }
+            };
+            return BasicJsonSerializer.Deserialize<BookPlacesResponse>(placesResponse.ToString());
         }
     }
 }

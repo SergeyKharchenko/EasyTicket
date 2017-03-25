@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using EasyTicket.SharedResources.Models.Responses;
+using System.Linq;
 
 namespace EasyTicket.SharedResources.Infrastructure {
     public class UzClient {
@@ -14,6 +15,9 @@ namespace EasyTicket.SharedResources.Infrastructure {
         private const string UrlTrains = BaseUrl + @"purchase/search/";
         private const string UrlWagons = BaseUrl + @"purchase/coaches/";
         private const string UrlPlaces = BaseUrl + @"purchase/coach/";
+        private const string UrlBook = BaseUrl + @"cart/add/";
+
+        private const string UzCookiePrefix = "_gv";
 
         private readonly TokenDecoder TokenDecoder = new TokenDecoder();
         private readonly ResponseFormatter ResponseFormatter = new ResponseFormatter();
@@ -85,6 +89,36 @@ namespace EasyTicket.SharedResources.Infrastructure {
 
             PlacesResponse placesResponse = await ExecutePostRequestAsync(context, UrlPlaces, content, ResponseFormatter.FormatPlaces);
             return placesResponse;
+        }
+
+        public async Task<BookPlacesResponse> BookPlaceAsync(UzContext context, int stationFromId, int stationToId, DateTime date, string trainNumber, int wagonNumber, string coachClass, string wagonTypeCode, int place, string placeType, string firstName, string lastName) {
+            var content = new FormUrlEncodedContent(
+                    new Dictionary<string, string> {
+                        {"from", stationFromId.ToString()},
+                        {"to", stationToId.ToString()},
+                        {"date", date.ToString("yyyy-MM-dd")},
+                        {"round_trip", "0" },
+                        {"train", trainNumber.ToString()},
+                        {"places[0][bedding]", "1" },
+                        {"places[0][charline]", placeType },
+                        {"places[0][child]", "" },
+                        {"places[0][firstname]", firstName },
+                        {"places[0][lastname]", lastName },
+                        {"places[0][ord]", "0" },
+                        {"places[0][place_num]", place.ToString() },
+                        {"places[0][reserve]", "0" },
+                        {"places[0][stud]", "" },
+                        {"places[0][transportation]", "0" },
+                        {"places[0][wagon_class]", coachClass },
+                        {"places[0][wagon_num]", wagonNumber.ToString() },
+                        {"places[0][wagon_type]", wagonTypeCode }
+                    });
+
+            BookPlacesResponse bookPlacesResponse = await ExecutePostRequestAsync(context, UrlBook, content, ResponseFormatter.FormatBookPlaces);
+            bookPlacesResponse.Cookies = context.Cookie.OfType<Cookie>().
+                Where(cookie => cookie.Name.StartsWith(UzCookiePrefix)).
+                ToDictionary(cookie => cookie.Name, cookie => cookie.Value);
+            return bookPlacesResponse;
         }
 
         private CookieSupportatbleHttpClient CreateHttpClient(UzContext context = null) {

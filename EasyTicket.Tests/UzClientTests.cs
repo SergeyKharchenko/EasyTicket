@@ -159,6 +159,7 @@ namespace EasyTicket.Tests {
                                                       wagon.CoachClass,
                                                       wagon.CoachType);
             
+            Assert.IsFalse(string.IsNullOrWhiteSpace(placesResponse.PlaceType));
             CollectionAssert.IsNotEmpty(placesResponse.Places);
         }
 
@@ -222,6 +223,31 @@ namespace EasyTicket.Tests {
             CollectionAssert.IsEmpty(placesResponse.Places);
         }
 
+        [Test]
+        public void BookPlaceAsyncWithValidParametersExpectPlaceBooked() {
+            UzContext context = _uzClient.GetUZContextAsync().Result;
+            TrainsResponse trainsResponse = GetTrains(context, KievStationId, LvovStatinId, DateTime.Today.AddDays(DaysOffset));
+            TrainsResponse.Train train = trainsResponse.Trains.First();
+            WagonsResponse wagonsResponse = _uzClient.GetWagonsAsync(context, KievStationId, LvovStatinId, train.StationFrom.DateTime, train.TrainNumber, train.TrainType, train.Wagons.First().TypeCode).Result;
+            WagonsResponse.Wagon wagon = wagonsResponse.Wagons.First();
+            PlacesResponse placesResponse = GetPlaces(context, KievStationId, LvovStatinId, train.StationFrom.DateTime, train.TrainNumber, wagon.Number, wagon.CoachClass, wagon.CoachType);
+
+            BookPlacesResponse bookPlaceResult = BookPlace(context,
+                KievStationId,
+                LvovStatinId,
+                DateTime.Today.AddDays(DaysOffset),
+                train.TrainNumber,
+                 wagon.Number,
+                 wagon.CoachClass,
+                 wagon.TypeCode,
+                 placesResponse.Places.First(),
+                 placesResponse.PlaceType,
+                 "Валера",
+                 "Топор");
+
+            Assert.IsFalse(bookPlaceResult.IsError);
+        }
+
         private TrainsResponse GetTrains(UzContext context, int stationIdFrom, int stationIdTo, DateTime dateTime) {
             return _uzClient.GetTrainsAsync(context, stationIdFrom, stationIdTo, dateTime).Result;
         }
@@ -232,6 +258,10 @@ namespace EasyTicket.Tests {
 
         private PlacesResponse GetPlaces(UzContext context, int stationIdFrom, int stationIdTo, DateTime dateTime, string trainNumber, int wagonNumber, string coachClass, int coachType) {
             return _uzClient.GetPlacesAsync(context, stationIdFrom, stationIdTo, dateTime, trainNumber, wagonNumber, coachClass, coachType).Result;
+        }
+
+        private BookPlacesResponse BookPlace(UzContext context, int stationFromId, int stationToId, DateTime dateTime, string trainNumber, int wagonNumber, string coachClass, string wagonTypeCode, int place, string placeType, string firstName, string lastName) {
+            return _uzClient.BookPlaceAsync(context, stationFromId, stationToId, dateTime, trainNumber, wagonNumber, coachClass, wagonTypeCode, place, placeType, firstName, lastName).Result;
         }
     }
 }

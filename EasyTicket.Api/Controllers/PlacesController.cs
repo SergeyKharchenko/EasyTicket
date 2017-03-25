@@ -1,10 +1,6 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using EasyTicket.Api.Dto;
-using EasyTicket.SharedResources;
 using EasyTicket.SharedResources.Infrastructure;
 using EasyTicket.SharedResources.Models.Responses;
 

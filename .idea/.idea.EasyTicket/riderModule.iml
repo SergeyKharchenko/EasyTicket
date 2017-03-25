@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RIDER_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/../..">
+      <sourceFolder url="file://$MODULE_DIR$/../../EasyTicket.Api" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../EasyTicket.SharedResources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../EasyTicket.Tests" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../EasyTicket.WebApp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../EasyTicket.Workbench" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/csc.exe" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/csc.exe.config" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/csc.rsp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/csi.exe" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/csi.rsp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/Microsoft.Build.Tasks.CodeAnalysis.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/Microsoft.CodeAnalysis.CSharp.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/Microsoft.CodeAnalysis.CSharp.Scripting.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/Microsoft.CodeAnalysis.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/Microsoft.CodeAnalysis.Scripting.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/Microsoft.CodeAnalysis.VisualBasic.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/Microsoft.CSharp.Core.targets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/Microsoft.DiaSymReader.Native.amd64.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/Microsoft.DiaSymReader.Native.x86.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/Microsoft.VisualBasic.Core.targets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/System.AppContext.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/System.Collections.Immutable.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/System.Diagnostics.StackTrace.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/System.IO.FileSystem.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/System.IO.FileSystem.Primitives.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/System.Reflection.Metadata.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/vbc.exe" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/vbc.exe.config" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/vbc.rsp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/VBCSCompiler.exe" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/Microsoft.Net.Compilers.1.3.2/tools/VBCSCompiler.exe.config" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/MSTest.TestAdapter.1.1.10-rc2/build/_common/Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/MSTest.TestAdapter.1.1.10-rc2/build/_common/Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../packages/MSTest.TestAdapter.1.1.10-rc2/build/_common/Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../ProcessRequestJob" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../../EasyTicket.Api/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../EasyTicket.Api/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../EasyTicket.SharedResources/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../EasyTicket.SharedResources/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../EasyTicket.Tests/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../EasyTicket.Tests/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../EasyTicket.WebApp/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../EasyTicket.WebApp/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../EasyTicket.Workbench/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../EasyTicket.Workbench/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../ProcessRequestJob/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../ProcessRequestJob/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../packages" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

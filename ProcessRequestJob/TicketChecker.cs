@@ -25,18 +25,23 @@ namespace ProcessRequestJob {
                 CheckResult checkResult = await CheckTicket(uzContext, request);
                 switch (checkResult.RequestState) {
                     case RequestState.Expired: {
-                        NotifyExpired(request);
-                        break;
-                    }
+                            NotifyExpired(request);
+                            break;
+                        }
                     case RequestState.Found: {
-                        NotifyFound(request);
-                        Console.WriteLine(checkResult);
-                        break;
-                    }
+                            BookPlaces(checkResult);
+                            NotifyFound(request);
+                            Console.WriteLine(checkResult);
+                            break;
+                        }
                 }
                 request.State = checkResult.RequestState;
                 UpdateRequest(request);
             }
+        }
+
+        private void BookPlaces(CheckResult checkResult) {
+            throw new NotImplementedException();
         }
 
         private Request[] GetRequests() {
@@ -64,7 +69,7 @@ namespace ProcessRequestJob {
             string wagonTypeCode = UzFormatConverter.Get(request.WagonType);
             ICollection<TrainsResponse.Train> trains = await GetTrains(uzContext, request, wagonTypeCode);
             foreach (TrainsResponse.Train train in trains) {
-                ICollection<WagonsResponse.Wagon> wagons = await GetWagons(uzContext, train, wagonTypeCode, request);
+                ICollection<ResponseWagonWithPlaceType> wagons = await GetWagons(uzContext, train, wagonTypeCode, request);
                 if (!wagons.Any()) {
                     continue;
                 }
@@ -91,7 +96,7 @@ namespace ProcessRequestJob {
                     select train).ToList();
         }
 
-        private async Task<ICollection<WagonsResponse.Wagon>> GetWagons(UzContext uzContext, TrainsResponse.Train train, string wagonTypeId, Request request) {
+        private async Task<ICollection<ResponseWagonWithPlaceType>> GetWagons(UzContext uzContext, TrainsResponse.Train train, string wagonTypeId, Request request) {
             WagonsResponse wagonsResponse =
                 await _uzClient.GetWagonsAsync(uzContext, train.StationFrom.Id,
                                           train.StationTo.Id,
@@ -101,33 +106,49 @@ namespace ProcessRequestJob {
             return await FilterWagonsByAvailablePlaces(uzContext, train, wagonsResponse, request);
         }
 
-        private async Task<ICollection<WagonsResponse.Wagon>> FilterWagonsByAvailablePlaces(UzContext uzContext, TrainsResponse.Train train, WagonsResponse wagonsResponse, Request request) {
-            List<WagonsResponse.Wagon> wagons = new List<WagonsResponse.Wagon>();
+        private async Task<ICollection<ResponseWagonWithPlaceType>> FilterWagonsByAvailablePlaces(UzContext uzContext, TrainsResponse.Train train, WagonsResponse wagonsResponse, Request request) {
+            var wagons = new List<ResponseWagonWithPlaceType>();
             foreach (WagonsResponse.Wagon wagon in wagonsResponse.Wagons) {
-                bool isPlaceAvailable = await IsPlaceAvailable(uzContext, train, wagon, request);
+                PlacesResponse placesResponse = await GetPlacesAsync(uzContext, train, wagon, request);
+                bool isPlaceAvailable = IsPlaceAvailable(placesResponse, request);
                 if (isPlaceAvailable) {
-                    wagons.Add(wagon);
+                    ResponseWagonWithPlaceType wagonWithPlaceType = ExtendResponseWagonWithPlaceType(wagon, placesResponse);
+                    wagons.Add(wagonWithPlaceType);
                 }
             }
             return wagons;
         }
 
-        private async Task<bool> IsPlaceAvailable(UzContext uzContext, TrainsResponse.Train train, WagonsResponse.Wagon wagon, Request request) {
-            PlacesResponse placesResponse =
-                await _uzClient.GetPlacesAsync(uzContext, train.StationFrom.Id, train.StationTo.Id,
+        private async Task<PlacesResponse> GetPlacesAsync(UzContext uzContext, TrainsResponse.Train train, WagonsResponse.Wagon wagon, Request request) {
+            return await _uzClient.GetPlacesAsync(uzContext, train.StationFrom.Id, train.StationTo.Id,
                                           train.StationFrom.DateTime,
                                           train.TrainNumber, wagon.Number, wagon.CoachClass, wagon.CoachType);
+        }
+
+        private bool IsPlaceAvailable(PlacesResponse placesResponse, Request request) {
             switch (request.SearchType) {
                 case SearchType.Any: {
-                    return request.Places.Intersect(placesResponse.Places).Any();
-                }
+                        return request.Places.Intersect(placesResponse.Places).Any();
+                    }
                 default: {
-                    return !request.Places.Except(placesResponse.Places).Any();
-                }
+                        return !request.Places.Except(placesResponse.Places).Any();
+                    }
             }
         }
 
-        private Train ConvertToResultedTrain(TrainsResponse.Train train, ICollection<WagonsResponse.Wagon> wagons, string wagonTypeCode) {
+        private ResponseWagonWithPlaceType ExtendResponseWagonWithPlaceType(WagonsResponse.Wagon wagon, PlacesResponse placesResponse) {
+            return new ResponseWagonWithPlaceType {
+                Number = wagon.Number,
+                Price = wagon.Price,
+                CoachClass = wagon.CoachClass,
+                CoachType = wagon.CoachType,
+                FreePlaces = wagon.FreePlaces,
+                TypeCode = wagon.TypeCode,
+                PlaceType = placesResponse.PlaceType,
+            };
+        }
+
+        private Train ConvertToResultedTrain(TrainsResponse.Train train, ICollection<ResponseWagonWithPlaceType> wagons, string wagonTypeCode) {
             string wagonTypeDescription = train.Wagons.First(wagon => wagon.TypeCode == wagonTypeCode).TypeDescription;
 
             List<Wagon> resultedWagons = (from wagon in wagons
@@ -136,7 +157,8 @@ namespace ProcessRequestJob {
                                           select new Wagon {
                                               Number = wagon.Number,
                                               Price = wagon.Price,
-                                              TypeDescription = wagonTypeDescription
+                                              TypeDescription = wagonTypeDescription,
+                                              PlaceType = wagon.PlaceType
                                           }).ToList();
 
             return new Train {
@@ -189,10 +211,15 @@ namespace ProcessRequestJob {
             public string TypeDescription { get; set; }
             public int Number { get; set; }
             public decimal Price { get; set; }
+            public string PlaceType { get; set; }
 
             public override string ToString() {
                 return $"{nameof(TypeDescription)}: {TypeDescription}, {nameof(Number)}: {Number}, {nameof(Price)}: {Price}";
             }
+        }
+
+        private class ResponseWagonWithPlaceType : WagonsResponse.Wagon {
+            public string PlaceType { get; set; }
         }
     }
 }

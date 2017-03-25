@@ -138,11 +138,13 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Binders\DateAndTimeModelBinder.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BookPlacesController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Controllers\PlacesController.cs" />
     <Compile Include="Controllers\TrainsController.cs" />
     <Compile Include="Controllers\WagonsController.cs" />
+    <Compile Include="Dto\BookPlacesDto.cs" />
     <Compile Include="Dto\RequestDto.cs" />
     <Compile Include="Dto\PlacesRequestDto.cs" />
     <Compile Include="Dto\StationsRequestDto.cs" />
