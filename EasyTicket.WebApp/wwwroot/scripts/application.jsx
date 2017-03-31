@@ -2,13 +2,14 @@
 import React from 'react';
 import LoadingView from './views/loadingView';
 import MainView from './views/mainView';
-import RequestView from './views/requestView';
+import BookingView from './views/bookingView';
 
 export default class Application extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            view: null
+            view: null,
+            data: null
         }
     }
 
@@ -19,9 +20,14 @@ export default class Application extends React.Component {
                 function() {
                     that.setState({view: 'main'});
                 });
-            this.get('#/request',
-                function() {
-                    that.setState({view: 'request'});
+            this.get('#/booking/:token',
+                function () {
+                    that.setState({
+                        view: 'request',
+                        data: {
+                            token: this.params['token']
+                        }
+                    });
                 });
             this.get(/.*/,
                 function() {
@@ -36,7 +42,7 @@ export default class Application extends React.Component {
                 return <MainView/>;
             }        
             case 'request': {
-                return <RequestView/>;
+                return <BookingView token={this.state.data.token}/>;
             }
             default: {
                 return <LoadingView/>;

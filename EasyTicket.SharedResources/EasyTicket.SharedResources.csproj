@@ -63,6 +63,7 @@
     <Compile Include="Models\Responses\StationsResonse.cs" />
     <Compile Include="Models\Responses\TrainsResponse.cs" />
     <Compile Include="Models\Responses\WagonsResponse.cs" />
+    <Compile Include="Models\Tables\Reservation.cs" />
     <Compile Include="Models\Tables\Request.cs" />
     <Compile Include="Enums\WagonType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

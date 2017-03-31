@@ -11,21 +11,22 @@ namespace ProcessRequestJob {
         private const string ApiKeyDecoded = "U0cuVzVHUkVPdTRROU9QMm9waERqYk85US5wSTB0RVZJUmUxUS1aZ0ZRaVFua3V6YURlOHppbHFUdlE1dE5fYTFWUWhZ";
         private const string AppName = "EasyTicket";
 
-        public static async Task<Response> Send(Request request) {
+        public static async Task<Response> Send(Request request, string token, string sessionId) {
             string apiKey = Base64Decode(ApiKeyDecoded);
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress($"{AppName}@gmail.com", AppName);
             string subject = $"Ваш билет в {request.StationToTitle} найден!";
             var to = new EmailAddress(request.PassangerEmail, request.PassangerName);
-            string body = FormatMailBody(request);
+            string body = FormatMailBody(request, token, sessionId);
             SendGridMessage msg = MailHelper.CreateSingleEmail(from, to, subject, body, body);
             return await client.SendEmailAsync(msg);
         }
 
-        private static string FormatMailBody(Request request) {
+        private static string FormatMailBody(Request request, string token, string sessionId) {
             return $"<p>Уважаемый {request.PassangerSurname} {request.PassangerName}, " +
                    $@"Ваш билет на {FormatDate(request.DateTime)} со станции ""{request.StationFromTitle}"" до станции ""{request.StationToTitle}"" найден.</p>" +
-                   @"<p>Пожалуйста, пройдите по ссылке <a href=""http://booking.uz.gov.ua/ru/"">Укрзалізниця</a> что бы совершить покупку</p>" +
+                   $@"<p>Пожалуйста, пройдите по ссылке <a href=""http://easyticket.azurewebsites.net/reservation/{token}"">Бронирование</a> что бы совершить покупку</p>" +
+                   $@"<p>Сессия {sessionId}</p>" +
                     "</br>" + 
                     "<p>С уважением,</br>" +
                     $" Ваш {AppName}</p>";

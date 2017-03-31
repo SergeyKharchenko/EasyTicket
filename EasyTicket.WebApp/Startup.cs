@@ -17,6 +17,7 @@ namespace EasyTicket.WebApp {
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
             Config = new Config {
                 ApiUrl = Configuration.GetValue<string>(ApiUrlConfigName)
             };
