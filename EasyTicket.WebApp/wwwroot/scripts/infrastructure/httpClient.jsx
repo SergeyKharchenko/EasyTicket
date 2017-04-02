@@ -8,10 +8,15 @@
     }
 
     sendGet(url, successCallback, failCallback, ...path) {
+        url = this._normalizeUrl(url);
         if (path && path.length) {
             url += path.join('/');
         }
         $.get(this.basePath + url).done(successCallback).fail(failCallback);
+    }
+
+    _normalizeUrl(url) {
+        return url.replace(/\/?(\?|#|$)/, '/$1');
     }
 
     sendPost(url, data, successCallback, failCallback) {

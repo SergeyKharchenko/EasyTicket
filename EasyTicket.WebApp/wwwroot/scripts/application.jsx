@@ -1,8 +1,8 @@
 ﻿import Sammy from 'sammy'
 import React from 'react';
-import LoadingView from './views/loadingView';
+import Loading from './controls/loading';
 import MainView from './views/mainView';
-import BookingView from './views/bookingView';
+import ReservationView from './views/reservationView';
 
 export default class Application extends React.Component {
     constructor(props) {
@@ -20,10 +20,10 @@ export default class Application extends React.Component {
                 function() {
                     that.setState({view: 'main'});
                 });
-            this.get('#/booking/:token',
+            this.get('#/reservation/:token',
                 function () {
                     that.setState({
-                        view: 'request',
+                        view: 'reservation',
                         data: {
                             token: this.params['token']
                         }
@@ -41,11 +41,11 @@ export default class Application extends React.Component {
             case 'main': {
                 return <MainView/>;
             }        
-            case 'request': {
-                return <BookingView token={this.state.data.token}/>;
+            case 'reservation': {
+                return <ReservationView token={this.state.data.token}/>;
             }
             default: {
-                return <LoadingView/>;
+                return <Loading/>;
             }
         }
     }

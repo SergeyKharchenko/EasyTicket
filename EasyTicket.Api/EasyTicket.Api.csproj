@@ -140,6 +140,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BookPlacesController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
+    <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Controllers\PlacesController.cs" />
     <Compile Include="Controllers\TrainsController.cs" />
@@ -147,7 +148,9 @@
     <Compile Include="Dto\BookPlacesDto.cs" />
     <Compile Include="Dto\RequestDto.cs" />
     <Compile Include="Dto\PlacesRequestDto.cs" />
+    <Compile Include="Dto\ReservationDto.cs" />
     <Compile Include="Dto\StationsRequestDto.cs" />
+    <Compile Include="Dto\TokenDto.cs" />
     <Compile Include="Dto\TrainsRequestDto.cs" />
     <Compile Include="Dto\WagonsRequestDto.cs" />
     <Compile Include="Global.asax.cs">
@@ -171,6 +174,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\EasyTicketUZApi - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -192,7 +196,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\PublishProfiles\EasyTicketUZApi.pubxml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>

@@ -5,7 +5,10 @@ using EasyTicket.SharedResources.Models.Tables;
 namespace EasyTicket.Api.Infrastructure {
     public static class Mapper {
         static Mapper() {
-            AutoMapper.Mapper.Initialize(cfg => { cfg.CreateMap<RequestDto, Request>().ReverseMap(); });
+            AutoMapper.Mapper.Initialize(cfg => {
+                cfg.CreateMap<RequestDto, Request>().ReverseMap();
+                cfg.CreateMap<ReservationDto, Reservation>().ReverseMap();
+            });
         }
 
         public static TDestination Map<TSource, TDestination>(TSource source) {

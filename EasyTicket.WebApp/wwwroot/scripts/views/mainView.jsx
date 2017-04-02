@@ -219,8 +219,7 @@ export default class MainView extends React.Component {
                 that.setState({
                     requesting: false
                 });
-                var toast = new Toast("Ваш запрос успешно создан");
-                toast.show();
+                new Toast("Ваш запрос успешно создан").show();
             }, 
             error => {
                 this.setState({ error: error, requesting: false });

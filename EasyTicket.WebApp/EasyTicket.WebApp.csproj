@@ -32,7 +32,9 @@
     <Content Include="wwwroot\fonts\roboto\Roboto-Thin.woff2" />
     <Content Include="wwwroot\images\loading.gif" />
     <Content Include="wwwroot\scripts\application.jsx" />
-    <Content Include="wwwroot\scripts\views\bookingView.jsx" />
+    <Content Include="wwwroot\scripts\controls\loading.jsx" />
+    <Content Include="wwwroot\scripts\views\loading.jsx" />
+    <Content Include="wwwroot\scripts\views\reservationView.jsx" />
     <Content Include="wwwroot\styles\site.scss" />
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>

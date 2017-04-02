@@ -3,7 +3,6 @@ using EasyTicket.Api.Dto;
 using EasyTicket.Api.Infrastructure;
 using EasyTicket.SharedResources;
 using EasyTicket.SharedResources.Infrastructure;
-using EasyTicket.SharedResources.Models;
 using EasyTicket.SharedResources.Models.Tables;
 
 namespace EasyTicket.Api.Controllers {

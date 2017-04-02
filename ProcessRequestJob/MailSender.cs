@@ -25,7 +25,7 @@ namespace ProcessRequestJob {
         private static string FormatMailBody(Request request, string token, string sessionId) {
             return $"<p>Уважаемый {request.PassangerSurname} {request.PassangerName}, " +
                    $@"Ваш билет на {FormatDate(request.DateTime)} со станции ""{request.StationFromTitle}"" до станции ""{request.StationToTitle}"" найден.</p>" +
-                   $@"<p>Пожалуйста, пройдите по ссылке <a href=""http://easyticket.azurewebsites.net/reservation/{token}"">Бронирование</a> что бы совершить покупку</p>" +
+                   $@"<p>Пожалуйста, пройдите по ссылке <a href=""http://easyticket.azurewebsites.net/#/reservation/{token}"">Бронирование</a> что бы совершить покупку</p>" +
                    $@"<p>Сессия {sessionId}</p>" +
                     "</br>" + 
                     "<p>С уважением,</br>" +
